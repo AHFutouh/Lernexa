@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lernexa — Your Smart Guide from Confusion to Career</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#algorithms">Algorithms</a></li>
+        <li><a href="visualizer.html?type=ds" class="btn btn-ghost">Launch App</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero-bg-grid" aria-hidden="true"></div>
+      <div class="hero-glow glow-blue" aria-hidden="true"></div>
+      <div class="hero-glow glow-purple" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fa-solid fa-bolt"></i>
+          <span>ITI Work-Based Project</span>
+        </div>
+
+        <h1 class="hero-title">
+          Lost in Tech?<br />
+          <span class="gradient-text">Start Here.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Lernexa transforms abstract algorithms and data structures into
+          living, breathing visualizations — so you understand the <em>why</em>,
+          not just the <em>how</em>.
+        </p>
+
+        <div class="hero-actions">
+          <a href="visualizer.html?type=ds" class="btn btn-primary">
+            <i class="fa-solid fa-diagram-project"></i>
+            Explore Data Structures
+          </a>
+          <a href="visualizer.html?type=ai" class="btn btn-secondary">
+            <i class="fa-solid fa-brain"></i>
+            Explore AI Algorithms
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">4</span>
+            <span class="stat-label">Algorithms</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Visualizers</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Clarity</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="code-window">
+          <div class="code-window-bar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="code-window-title">bubble_sort.js</span>
+          </div>
+          <pre class="code-block"><code><span class="kw">async function</span> <span class="fn">bubbleSort</span>(arr) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; arr.length; i++) {
+    <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j &lt; arr.length - i - <span class="num">1</span>; j++) {
+      highlight(j, j+<span class="num">1</span>);
+      <span class="kw">if</span> (arr[j] &gt; arr[j+<span class="num">1</span>]) {
+        swap(arr, j, j+<span class="num">1</span>);
+      }
+      <span class="kw">await</span> <span class="fn">sleep</span>(speed);
+    }
+  }
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features" id="features">
+      <div class="section-header">
+        <span class="section-tag">Why Lernexa</span>
+        <h2>Built for <span class="gradient-text">Deep Understanding</span></h2>
+        <p>Stop memorizing. Start seeing.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card glass-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-eye"></i>
+          </div>
+          <h3>Live Visualization</h3>
+          <p>Watch every comparison, swap, and path explored in real time. Animations synchronized to each algorithmic step.</p>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <h3>Full Control</h3>
+          <p>Play, pause, reset, and adjust speed from 1× to 5×. You drive the execution.</p>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <h3>Contextual Info</h3>
+          <p>Every algorithm ships with Big-O complexity, space complexity, and a human-readable description — no tab-switching required.</p>
+        </div>
+
+        <div class="feature-card glass-card">
+          <div class="feature-icon">
+            <i class="fa-solid fa-hand-pointer"></i>
+          </div>
+          <h3>Interactive Grids</h3>
+          <p>Click to place walls, set start and end nodes, and watch A* find the shortest path through your own maze.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ALGORITHMS SHOWCASE ===== -->
+    <section class="algorithms" id="algorithms">
+      <div class="section-header">
+        <span class="section-tag">What's Inside</span>
+        <h2>Four Algorithms. <span class="gradient-text">One Platform.</span></h2>
+      </div>
+
+      <div class="algo-cards">
+        <a href="visualizer.html?algo=bubble-sort" class="algo-card glass-card">
+          <div class="algo-card-header">
+            <span class="algo-category ds">Data Structure</span>
+            <i class="fa-solid fa-arrow-up-wide-short"></i>
+          </div>
+          <h3>Bubble Sort</h3>
+          <div class="algo-complexity">
+            <span class="complexity-badge">O(n²)</span>
+            <span class="complexity-label">Time</span>
+            <span class="complexity-badge">O(1)</span>
+            <span class="complexity-label">Space</span>
+          </div>
+          <p>The classic comparison sort. Watch adjacent elements bubble to their rightful position.</p>
+          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="visualizer.html?algo=merge-sort" class="algo-card glass-card">
+          <div class="algo-card-header">
+            <span class="algo-category ds">Data Structure</span>
+            <i class="fa-solid fa-code-merge"></i>
+          </div>
+          <h3>Merge Sort</h3>
+          <div class="algo-complexity">
+            <span class="complexity-badge">O(n log n)</span>
+            <span class="complexity-label">Time</span>
+            <span class="complexity-badge">O(n)</span>
+            <span class="complexity-label">Space</span>
+          </div>
+          <p>Divide and conquer. See how splitting and merging produces a perfectly sorted array.</p>
+          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="visualizer.html?algo=astar" class="algo-card glass-card">
+          <div class="algo-card-header">
+            <span class="algo-category ai">AI Algorithm</span>
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <h3>A* Pathfinding</h3>
+          <div class="algo-complexity">
+            <span class="complexity-badge">O(E log V)</span>
+            <span class="complexity-label">Time</span>
+            <span class="complexity-badge">O(V)</span>
+            <span class="complexity-label">Space</span>
+          </div>
+          <p>The gold standard of pathfinding. Draw walls, set goals, watch heuristic-guided search.</p>
+          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="visualizer.html?algo=kmeans" class="algo-card glass-card">
+          <div class="algo-card-header">
+            <span class="algo-category ai">AI Algorithm</span>
+            <i class="fa-solid fa-circle-nodes"></i>
+          </div>
+          <h3>K-Means Clustering</h3>
+          <div class="algo-complexity">
+            <span class="complexity-badge">O(n·k·i)</span>
+            <span class="complexity-label">Time</span>
+            <span class="complexity-badge">O(n+k)</span>
+            <span class="complexity-label">Space</span>
+          </div>
+          <p>Unsupervised learning, visualized. Watch data points self-organize around shifting centroids.</p>
+          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section">
+      <div class="cta-glow" aria-hidden="true"></div>
+      <div class="cta-content">
+        <h2>Ready to <span class="gradient-text">See the Code Think</span>?</h2>
+        <p>Jump into the interactive visualizer and start learning by watching.</p>
+        <a href="visualizer.html?type=ds" class="btn btn-primary btn-lg">
+          Launch Visualizer <i class="fa-solid fa-rocket"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
+      </div>
+      <p class="footer-tagline">Your Smart Guide from Confusion to Career</p>
+      <p class="footer-credit">Built with <i class="fa-solid fa-heart" style="color: var(--accent-purple)"></i> for ITI · Vanilla JS · No Frameworks</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>
