@@ -1,0 +1,1571 @@
+[
+  {
+    "id": "linear-search",
+    "name": "Linear Search",
+    "category": "searching",
+    "categoryLabel": "Searching",
+    "difficulty": "beginner",
+    "engine": "memoryEngine",
+    "icon": "fa-magnifying-glass",
+    "input": {
+      "type": "array+target",
+      "arrayLabel": "Array (numbers, comma-separated)",
+      "targetLabel": "Target value",
+      "defaultArray": [
+        4,
+        7,
+        2,
+        19,
+        1,
+        13,
+        8,
+        6,
+        11,
+        5
+      ],
+      "defaultTarget": 13,
+      "requireSorted": false
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Linear Search scans every element from left to right until it finds the target or exhausts the array. Simple and works on unsorted data.",
+    "tags": [
+      "Search",
+      "Sequential",
+      "In-Place",
+      "No Prerequisites"
+    ],
+    "variables": [
+      "i",
+      "current",
+      "target"
+    ],
+    "counters": [
+      "comparisons",
+      "accesses"
+    ]
+  },
+  {
+    "id": "binary-search",
+    "name": "Binary Search",
+    "category": "searching",
+    "categoryLabel": "Searching",
+    "difficulty": "beginner",
+    "engine": "memoryEngine",
+    "icon": "fa-divide",
+    "input": {
+      "type": "array+target",
+      "arrayLabel": "Sorted array (numbers, comma-separated)",
+      "targetLabel": "Target value",
+      "defaultArray": [
+        2,
+        5,
+        8,
+        12,
+        16,
+        23,
+        38,
+        56,
+        72,
+        91
+      ],
+      "defaultTarget": 23,
+      "requireSorted": true
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(log n)",
+      "worst": "O(log n)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Binary Search repeatedly halves a sorted array's search space by comparing the target against the midpoint. Dramatically faster than linear search on large datasets.",
+    "tags": [
+      "Search",
+      "Divide & Conquer",
+      "In-Place",
+      "Sorted Array Required"
+    ],
+    "variables": [
+      "left",
+      "right",
+      "mid",
+      "mid_value"
+    ],
+    "counters": [
+      "comparisons",
+      "steps",
+      "accesses"
+    ]
+  },
+  {
+    "id": "interpolation-search",
+    "name": "Interpolation Search",
+    "category": "searching",
+    "categoryLabel": "Searching",
+    "difficulty": "intermediate",
+    "engine": "memoryEngine",
+    "icon": "fa-chart-line",
+    "input": {
+      "type": "array+target",
+      "arrayLabel": "Uniformly distributed sorted array",
+      "targetLabel": "Target value",
+      "defaultArray": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100
+      ],
+      "defaultTarget": 70,
+      "requireSorted": true
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(log log n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Interpolation Search estimates the target's position using a linear interpolation formula. Most efficient on uniformly distributed sorted arrays \u2014 can outperform Binary Search significantly.",
+    "tags": [
+      "Search",
+      "Interpolation",
+      "In-Place",
+      "Sorted + Uniform Data"
+    ],
+    "variables": [
+      "low",
+      "high",
+      "pos",
+      "pos_value"
+    ],
+    "counters": [
+      "comparisons",
+      "steps"
+    ]
+  },
+  {
+    "id": "bubble-sort",
+    "name": "Bubble Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "beginner",
+    "engine": "barsEngine",
+    "icon": "fa-arrow-up-wide-short",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort (numbers, comma-separated)",
+      "defaultArray": [
+        64,
+        34,
+        25,
+        12,
+        22,
+        11,
+        90
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n\u00b2)",
+      "worst": "O(n\u00b2)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Bubble Sort repeatedly steps through the list, compares adjacent elements, and swaps them if out of order. Each pass bubbles the largest unsorted element to its correct position.",
+    "tags": [
+      "Comparison Sort",
+      "In-Place",
+      "Stable",
+      "Adaptive"
+    ],
+    "variables": [
+      "i",
+      "j",
+      "swapped"
+    ],
+    "counters": [
+      "comparisons",
+      "array_accesses",
+      "swaps",
+      "passes"
+    ]
+  },
+  {
+    "id": "selection-sort",
+    "name": "Selection Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "beginner",
+    "engine": "barsEngine",
+    "icon": "fa-hand-pointer",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort",
+      "defaultArray": [
+        64,
+        25,
+        12,
+        22,
+        11
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b2)",
+      "average": "O(n\u00b2)",
+      "worst": "O(n\u00b2)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Selection Sort divides the array into sorted and unsorted parts. Each pass selects the minimum from the unsorted part and places it at the beginning of the sorted part.",
+    "tags": [
+      "Comparison Sort",
+      "In-Place",
+      "Unstable",
+      "Minimal Swaps"
+    ],
+    "variables": [
+      "i",
+      "j",
+      "min_idx"
+    ],
+    "counters": [
+      "comparisons",
+      "swaps"
+    ]
+  },
+  {
+    "id": "insertion-sort",
+    "name": "Insertion Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "beginner",
+    "engine": "barsEngine",
+    "icon": "fa-layer-group",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort",
+      "defaultArray": [
+        12,
+        11,
+        13,
+        5,
+        6
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n\u00b2)",
+      "worst": "O(n\u00b2)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Insertion Sort builds the sorted array one item at a time by taking each element and inserting it into its correct position among the already-sorted elements.",
+    "tags": [
+      "Comparison Sort",
+      "In-Place",
+      "Stable",
+      "Adaptive",
+      "Online"
+    ],
+    "variables": [
+      "i",
+      "j",
+      "key"
+    ],
+    "counters": [
+      "comparisons",
+      "shifts"
+    ]
+  },
+  {
+    "id": "merge-sort",
+    "name": "Merge Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "intermediate",
+    "engine": "barsEngine",
+    "icon": "fa-code-merge",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort",
+      "defaultArray": [
+        38,
+        27,
+        43,
+        3,
+        9,
+        82,
+        10
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n log n)",
+      "average": "O(n log n)",
+      "worst": "O(n log n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "Merge Sort is a divide-and-conquer algorithm that splits the array in half recursively, sorts each half, then merges them back together. Guarantees O(n log n) for all cases.",
+    "tags": [
+      "Comparison Sort",
+      "Divide & Conquer",
+      "Stable",
+      "Not In-Place"
+    ],
+    "variables": [
+      "left",
+      "right",
+      "mid",
+      "i",
+      "j",
+      "k"
+    ],
+    "counters": [
+      "comparisons",
+      "merges",
+      "array_writes"
+    ]
+  },
+  {
+    "id": "heap-sort",
+    "name": "Heap Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "advanced",
+    "engine": "barsEngine",
+    "icon": "fa-sitemap",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort",
+      "defaultArray": [
+        12,
+        11,
+        13,
+        5,
+        6,
+        7
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n log n)",
+      "average": "O(n log n)",
+      "worst": "O(n log n)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Heap Sort transforms the array into a max-heap, then repeatedly extracts the maximum element and rebuilds the heap. Combines the O(n log n) guarantee of Merge Sort with O(1) space.",
+    "tags": [
+      "Comparison Sort",
+      "In-Place",
+      "Unstable",
+      "Heap-Based"
+    ],
+    "variables": [
+      "n",
+      "largest",
+      "left",
+      "right",
+      "root"
+    ],
+    "counters": [
+      "comparisons",
+      "swaps"
+    ]
+  },
+  {
+    "id": "quick-sort",
+    "name": "Quick Sort",
+    "category": "sorting",
+    "categoryLabel": "Sorting",
+    "difficulty": "intermediate",
+    "engine": "barsEngine",
+    "icon": "fa-bolt",
+    "input": {
+      "type": "array",
+      "arrayLabel": "Array to sort (numbers, comma-separated)",
+      "defaultArray": [
+        64,
+        34,
+        25,
+        12,
+        22,
+        11,
+        90
+      ],
+      "allowRandom": true
+    },
+    "timeComplexity": {
+      "best": "O(n log n)",
+      "average": "O(n log n)",
+      "worst": "O(n\u00b2)"
+    },
+    "spaceComplexity": "O(log n)",
+    "description": "Quick Sort picks a pivot element and partitions the array into two sub-arrays: elements less than the pivot and elements greater than it. It then recursively sorts each sub-array. Average-case performance is excellent, but worst-case occurs with poor pivot choices.",
+    "tags": [
+      "Divide & Conquer",
+      "In-Place",
+      "Recursive",
+      "Unstable"
+    ],
+    "variables": [
+      "n",
+      "pivot",
+      "low",
+      "high",
+      "i",
+      "j"
+    ],
+    "counters": [
+      "comparisons",
+      "swaps",
+      "partitions"
+    ]
+  },
+  {
+    "id": "stack",
+    "name": "Stack (LIFO)",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "beginner",
+    "engine": "listEngine",
+    "icon": "fa-layer-group",
+    "input": {
+      "type": "operations",
+      "defaultOps": [
+        "push:10",
+        "push:20",
+        "push:30",
+        "pop",
+        "push:40",
+        "peek"
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(1)",
+      "worst": "O(1)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "A Stack is a Last-In-First-Out (LIFO) data structure. Elements are pushed onto the top and popped from the top. Used in function call stacks, undo operations, and expression evaluation.",
+    "tags": [
+      "LIFO",
+      "Push",
+      "Pop",
+      "Peek",
+      "Abstract Data Type"
+    ],
+    "variables": [
+      "top",
+      "size"
+    ],
+    "counters": [
+      "pushes",
+      "pops"
+    ]
+  },
+  {
+    "id": "queue",
+    "name": "Queue (FIFO)",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "beginner",
+    "engine": "listEngine",
+    "icon": "fa-list-ol",
+    "input": {
+      "type": "operations",
+      "defaultOps": [
+        "enqueue:10",
+        "enqueue:20",
+        "enqueue:30",
+        "dequeue",
+        "enqueue:40"
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(1)",
+      "worst": "O(1)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "A Queue is a First-In-First-Out (FIFO) data structure. Elements are enqueued at the rear and dequeued from the front. Used in task scheduling, BFS traversal, and print spoolers.",
+    "tags": [
+      "FIFO",
+      "Enqueue",
+      "Dequeue",
+      "Abstract Data Type"
+    ],
+    "variables": [
+      "front",
+      "rear",
+      "size"
+    ],
+    "counters": [
+      "enqueues",
+      "dequeues"
+    ]
+  },
+  {
+    "id": "linked-list-singly",
+    "name": "Singly Linked List",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "beginner",
+    "engine": "listEngine",
+    "icon": "fa-link",
+    "input": {
+      "type": "list-ops",
+      "defaultOps": [
+        "insert_head:10",
+        "insert_head:20",
+        "insert_tail:30",
+        "delete:20",
+        "search:30"
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "A Singly Linked List stores elements as nodes where each node holds data and a pointer to the next node. Efficient insertions/deletions but no random access.",
+    "tags": [
+      "Pointer-Based",
+      "Dynamic Size",
+      "Sequential Access",
+      "No Random Access"
+    ],
+    "variables": [
+      "head",
+      "current",
+      "tail",
+      "size"
+    ],
+    "counters": [
+      "insertions",
+      "deletions",
+      "traversals"
+    ]
+  },
+  {
+    "id": "infix-to-postfix",
+    "name": "Infix → Postfix (RPN)",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "intermediate",
+    "engine": "listEngine",
+    "icon": "fa-arrow-right-arrow-left",
+    "input": {
+      "type": "expression",
+      "label": "Infix expression (e.g. a+b*c-d/e)",
+      "defaultExpression": "a+b*c-d/e"
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "Converts an infix expression (a+b) to postfix / Reverse Polish Notation (ab+) using the Shunting-Yard algorithm. Operators are pushed to a stack; higher-precedence operators delay output of lower-precedence ones.",
+    "tags": [
+      "Stack",
+      "Shunting-Yard",
+      "Expression",
+      "Postfix",
+      "RPN"
+    ],
+    "variables": [
+      "expression",
+      "current_token",
+      "stack_top",
+      "output",
+      "postfix_result"
+    ],
+    "counters": [
+      "pushes",
+      "pops",
+      "tokens_processed"
+    ]
+  },
+  {
+    "id": "infix-to-prefix",
+    "name": "Infix → Prefix (Polish)",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "intermediate",
+    "engine": "listEngine",
+    "icon": "fa-left-right",
+    "input": {
+      "type": "expression",
+      "label": "Infix expression (e.g. a+b*c-d/e)",
+      "defaultExpression": "a+b*c-d/e"
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "Converts an infix expression to prefix / Polish Notation (+ab) by reversing the expression, converting to postfix (with swapped parentheses), then reversing the result.",
+    "tags": [
+      "Stack",
+      "Expression",
+      "Prefix",
+      "Polish Notation"
+    ],
+    "variables": [
+      "expression",
+      "reversed_expr",
+      "current_token",
+      "stack_top",
+      "output",
+      "prefix_result"
+    ],
+    "counters": [
+      "pushes",
+      "pops",
+      "tokens_processed"
+    ]
+  },
+  {
+    "id": "postfix-evaluator",
+    "name": "Postfix Evaluator",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "beginner",
+    "engine": "listEngine",
+    "icon": "fa-equals",
+    "input": {
+      "type": "expression",
+      "label": "Postfix expression (space-separated, e.g. 3 4 + 2 * 7 -)",
+      "defaultExpression": "3 4 + 2 * 7 -"
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "Evaluates a postfix (RPN) expression using a stack. Numbers are pushed; operators pop two operands, compute the result, and push it back. No parentheses needed.",
+    "tags": [
+      "Stack",
+      "Expression Evaluation",
+      "Postfix",
+      "RPN",
+      "No Parentheses"
+    ],
+    "variables": [
+      "expression",
+      "current_token",
+      "stack_top",
+      "result"
+    ],
+    "counters": [
+      "pushes",
+      "pops",
+      "operations"
+    ]
+  },
+  {
+    "id": "linked-list-doubly",
+    "name": "Doubly Linked List",
+    "category": "structures",
+    "categoryLabel": "Data Structures",
+    "difficulty": "intermediate",
+    "engine": "listEngine",
+    "icon": "fa-arrows-left-right",
+    "input": {
+      "type": "list-ops",
+      "defaultOps": [
+        "insert:10",
+        "insert:20",
+        "insert:30",
+        "delete:20",
+        "traverse_back"
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "A Doubly Linked List extends the singly linked list by giving each node both next and prev pointers. Enables bidirectional traversal and more efficient deletions.",
+    "tags": [
+      "Bi-directional",
+      "Pointer-Based",
+      "Dynamic Size"
+    ],
+    "variables": [
+      "head",
+      "tail",
+      "current",
+      "size"
+    ],
+    "counters": [
+      "insertions",
+      "deletions",
+      "traversals"
+    ]
+  },
+  {
+    "id": "bfs",
+    "name": "Breadth-First Search",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "networkEngine",
+    "icon": "fa-wave-square",
+    "input": {
+      "type": "graph",
+      "defaultStart": 0
+    },
+    "timeComplexity": {
+      "best": "O(V + E)",
+      "average": "O(V + E)",
+      "worst": "O(V + E)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "BFS explores a graph level by level using a queue. It visits all neighbours of the current node before moving deeper. Guarantees shortest path in unweighted graphs.",
+    "tags": [
+      "Graph Search",
+      "Queue-Based",
+      "Shortest Path",
+      "Unweighted"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "queue_size",
+      "visited",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "dfs",
+    "name": "Depth-First Search",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "networkEngine",
+    "icon": "fa-arrow-trend-down",
+    "input": {
+      "type": "graph",
+      "defaultStart": 0
+    },
+    "timeComplexity": {
+      "best": "O(V + E)",
+      "average": "O(V + E)",
+      "worst": "O(V + E)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "DFS explores as far as possible along each branch before backtracking. Uses a stack (or recursion). Essential for topological sorting, cycle detection, and solving mazes.",
+    "tags": [
+      "Graph Search",
+      "Stack-Based",
+      "Backtracking",
+      "Recursive"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "stack_size",
+      "visited",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "astar",
+    "name": "A* Pathfinding",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "advanced",
+    "engine": "networkEngine",
+    "icon": "fa-route",
+    "input": {
+      "type": "graph"
+    },
+    "timeComplexity": {
+      "best": "O(E)",
+      "average": "O(E log V)",
+      "worst": "O(E log V)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "A* is an informed search algorithm that finds the shortest weighted path using a heuristic (Euclidean distance on the graph). It combines the actual edge-weight cost from start (g) with an estimated cost to goal (h), expanding nodes with the lowest f = g + h first.",
+    "tags": [
+      "Graph Search",
+      "Heuristic",
+      "Shortest Path",
+      "Optimal",
+      "Weighted Graph"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "heuristic",
+      "open_set",
+      "closed_set",
+      "g",
+      "h",
+      "f",
+      "path_length",
+      "path_cost"
+    ],
+    "counters": [
+      "nodes_visited",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "dijkstra",
+    "name": "Dijkstra's Algorithm",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "advanced",
+    "engine": "networkEngine",
+    "icon": "fa-route",
+    "input": {
+      "type": "graph"
+    },
+    "timeComplexity": {
+      "best": "O((V+E) log V)",
+      "average": "O((V+E) log V)",
+      "worst": "O(V\u00b2)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "Dijkstra's algorithm finds the shortest path between nodes in a weighted graph. It maintains a priority queue of nodes ordered by their tentative distance from the source, greedily expanding the closest unvisited node. Guarantees the shortest path in graphs with non-negative edge weights.",
+    "tags": [
+      "Shortest Path",
+      "Greedy",
+      "Priority Queue",
+      "Weighted Graph"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "dist_start",
+      "dist_current",
+      "pq_size",
+      "visited",
+      "path_cost",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "ucs",
+    "name": "Uniform Cost Search",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "networkEngine",
+    "icon": "fa-circle-dollar-to-slot",
+    "input": {
+      "type": "graph"
+    },
+    "timeComplexity": {
+      "best": "O(E log V)",
+      "average": "O(E log V)",
+      "worst": "O(E log V)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "Uniform Cost Search expands nodes in order of their cumulative path cost from the start, using a priority queue. Guarantees the minimum-cost path in weighted graphs with non-negative edge weights. Equivalent to Dijkstra's when searching for a single goal.",
+    "tags": [
+      "Graph Search",
+      "Priority Queue",
+      "Shortest Path",
+      "Optimal",
+      "Weighted Graph"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "cost",
+      "frontier",
+      "explored",
+      "path_cost",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited",
+      "relaxations"
+    ]
+  },
+  {
+    "id": "dls",
+    "name": "Depth-Limited Search",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "networkEngine",
+    "icon": "fa-arrow-down-short-wide",
+    "input": {
+      "type": "graph",
+      "defaultDepthLimit": 3
+    },
+    "timeComplexity": {
+      "best": "O(b^l)",
+      "average": "O(b^l)",
+      "worst": "O(b^l)"
+    },
+    "spaceComplexity": "O(b·l)",
+    "description": "Depth-Limited Search is DFS with a hard depth cap. Nodes beyond the limit are never expanded, preventing infinite loops in cyclic graphs. Useful when the solution depth is known in advance.",
+    "tags": [
+      "Graph Search",
+      "DFS Variant",
+      "Depth Limit",
+      "Stack-Based"
+    ],
+    "variables": [
+      "depth_limit",
+      "current_depth",
+      "nodes_visited",
+      "current",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited"
+    ]
+  },
+  {
+    "id": "ids",
+    "name": "Iterative Deepening DFS",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "advanced",
+    "engine": "networkEngine",
+    "icon": "fa-layer-group",
+    "input": {
+      "type": "graph"
+    },
+    "timeComplexity": {
+      "best": "O(b^d)",
+      "average": "O(b^d)",
+      "worst": "O(b^d)"
+    },
+    "spaceComplexity": "O(b·d)",
+    "description": "Iterative Deepening DFS repeatedly runs DLS with increasing depth limits (0, 1, 2, ...) until the goal is found. Combines BFS's optimal depth guarantee with DFS's linear memory use.",
+    "tags": [
+      "Graph Search",
+      "DFS Variant",
+      "Iterative",
+      "Optimal Depth",
+      "Linear Memory"
+    ],
+    "variables": [
+      "iteration",
+      "depth_limit",
+      "total_visited",
+      "current",
+      "path_depth"
+    ],
+    "counters": [
+      "nodes_visited"
+    ]
+  },
+  {
+    "id": "greedy-best-first",
+    "name": "Greedy Best-First Search",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "networkEngine",
+    "icon": "fa-bolt",
+    "input": {
+      "type": "graph"
+    },
+    "timeComplexity": {
+      "best": "O(E log V)",
+      "average": "O(E log V)",
+      "worst": "O(E log V)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "Greedy Best-First Search expands the node that appears closest to the goal using only the heuristic h(n) — ignoring the actual path cost g(n). Faster than A* in practice but not guaranteed to find the optimal path.",
+    "tags": [
+      "Graph Search",
+      "Heuristic",
+      "Priority Queue",
+      "Not Optimal",
+      "Fast"
+    ],
+    "variables": [
+      "start",
+      "goal",
+      "current",
+      "h",
+      "open_set",
+      "closed_set",
+      "path_length"
+    ],
+    "counters": [
+      "nodes_visited",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "maze-generation",
+    "name": "Maze Generation",
+    "category": "graph",
+    "categoryLabel": "Graph",
+    "difficulty": "intermediate",
+    "engine": "gridEngine",
+    "icon": "fa-border-all",
+    "input": {
+      "type": "grid",
+      "gridRows": 21,
+      "gridCols": 41
+    },
+    "timeComplexity": {
+      "best": "O(V)",
+      "average": "O(V)",
+      "worst": "O(V)"
+    },
+    "spaceComplexity": "O(V)",
+    "description": "Recursive Backtracker maze generation carves passages through a grid using DFS. Every generated maze is a perfect maze \u2014 exactly one path exists between any two cells.",
+    "tags": [
+      "Recursive Backtracker",
+      "DFS-Based",
+      "Perfect Maze",
+      "Grid"
+    ],
+    "variables": [
+      "algorithm",
+      "rows",
+      "cols",
+      "current",
+      "stack_depth",
+      "cells_carved"
+    ],
+    "counters": [
+      "cells_carved",
+      "backtracks"
+    ]
+  },
+  {
+    "id": "bst",
+    "name": "Binary Search Tree",
+    "category": "trees",
+    "categoryLabel": "Trees",
+    "difficulty": "intermediate",
+    "engine": "graphEngine",
+    "icon": "fa-diagram-project",
+    "input": {
+      "type": "bst-ops",
+      "defaultValues": [
+        50,
+        30,
+        70,
+        20,
+        40,
+        60,
+        80
+      ],
+      "defaultOps": [
+        "insert:50",
+        "insert:30",
+        "insert:70",
+        "insert:20",
+        "insert:40",
+        "insert:60",
+        "insert:80",
+        "search:40",
+        "search:90"
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(log n)",
+      "average": "O(log n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "A Binary Search Tree maintains the BST property: every left child is smaller and every right child is larger than its parent. Search, insert, and delete run in O(log n) on average for balanced trees, but degenerate to O(n) on sorted input. In-order traversal of a BST yields a sorted sequence.",
+    "tags": [
+      "Tree",
+      "BST",
+      "Binary Search Tree",
+      "Recursive",
+      "In-Order Sorted",
+      "May Degenerate"
+    ],
+    "variables": [
+      "current",
+      "comparing",
+      "size",
+      "height"
+    ],
+    "counters": [
+      "comparisons",
+      "insertions",
+      "found_count"
+    ]
+  },
+  {
+    "id": "tree-traversals",
+    "name": "Tree Traversals",
+    "category": "trees",
+    "categoryLabel": "Trees",
+    "difficulty": "intermediate",
+    "engine": "graphEngine",
+    "icon": "fa-tree",
+    "input": {
+      "type": "bst-ops",
+      "defaultValues": [
+        4,
+        2,
+        6,
+        1,
+        3,
+        5,
+        7
+      ],
+      "defaultMode": "inorder"
+    },
+    "timeComplexity": {
+      "best": "O(n)",
+      "average": "O(n)",
+      "worst": "O(n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "Tree traversals visit every node in a binary tree exactly once. In-Order (Left → Root → Right) yields a sorted sequence on a BST. Pre-Order (Root → Left → Right) is ideal for copying or serialising a tree. Post-Order (Left → Right → Root) is used for safe deletion. Level-Order (BFS) visits nodes level by level using a queue.",
+    "tags": [
+      "Tree",
+      "Traversal",
+      "In-Order",
+      "Pre-Order",
+      "Post-Order",
+      "Level-Order",
+      "DFS",
+      "BFS"
+    ],
+    "variables": [
+      "mode",
+      "current",
+      "visited",
+      "order",
+      "level"
+    ],
+    "counters": [
+      "visits"
+    ]
+  },
+  {
+    "id": "knapsack",
+    "name": "0/1 Knapsack Problem",
+    "category": "dp",
+    "categoryLabel": "Dynamic Programming",
+    "difficulty": "advanced",
+    "engine": "dpEngine",
+    "icon": "fa-bag-shopping",
+    "input": {
+      "type": "knapsack",
+      "defaultCapacity": 50,
+      "defaultItems": [
+        {
+          "name": "Item A",
+          "weight": 10,
+          "value": 60
+        },
+        {
+          "name": "Item B",
+          "weight": 20,
+          "value": 100
+        },
+        {
+          "name": "Item C",
+          "weight": 30,
+          "value": 120
+        }
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b7W)",
+      "average": "O(n\u00b7W)",
+      "worst": "O(n\u00b7W)"
+    },
+    "spaceComplexity": "O(n\u00b7W)",
+    "description": "The 0/1 Knapsack problem selects items to maximize value without exceeding a weight capacity. Each item can either be taken (1) or left (0) \u2014 no fractions allowed. Solved bottom-up with a 2-D DP table where dp[i][w] stores the best value using the first i items with capacity w.",
+    "tags": [
+      "Dynamic Programming",
+      "Bottom-Up",
+      "Optimization",
+      "Combinatorial",
+      "Traceback"
+    ],
+    "variables": [
+      "current_item",
+      "current_cap",
+      "leave_value",
+      "take_value",
+      "optimal_value",
+      "items_chosen"
+    ],
+    "counters": [
+      "comparisons",
+      "updates"
+    ]
+  },
+  {
+    "id": "fractional-knapsack",
+    "name": "Fractional Knapsack",
+    "category": "dp",
+    "categoryLabel": "Dynamic Programming",
+    "difficulty": "intermediate",
+    "engine": "dpEngine",
+    "icon": "fa-scissors",
+    "input": {
+      "type": "knapsack",
+      "defaultCapacity": 50,
+      "defaultItems": [
+        {
+          "name": "Item A",
+          "weight": 10,
+          "value": 60
+        },
+        {
+          "name": "Item B",
+          "weight": 20,
+          "value": 100
+        },
+        {
+          "name": "Item C",
+          "weight": 30,
+          "value": 120
+        }
+      ]
+    },
+    "timeComplexity": {
+      "best": "O(n log n)",
+      "average": "O(n log n)",
+      "worst": "O(n log n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "The Fractional Knapsack problem allows taking any fraction of an item. Items are sorted by value-to-weight ratio in descending order, then greedily selected \u2014 taking as much of the highest-ratio item as capacity allows. This greedy strategy always yields the globally optimal solution.",
+    "tags": [
+      "Greedy",
+      "Optimization",
+      "Ratio-Based",
+      "Always Optimal",
+      "Sorting Required"
+    ],
+    "variables": [
+      "ratio",
+      "weight_left",
+      "total_value"
+    ],
+    "counters": [
+      "choices"
+    ]
+  },
+  {
+    "id": "coin-change",
+    "name": "Coin Change Problem",
+    "category": "dp",
+    "categoryLabel": "Dynamic Programming",
+    "difficulty": "intermediate",
+    "engine": "dpEngine",
+    "icon": "fa-coins",
+    "input": {
+      "type": "coin-change",
+      "defaultCoins": [
+        1,
+        5,
+        10,
+        25
+      ],
+      "defaultAmount": 41
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b7amount)",
+      "average": "O(n\u00b7amount)",
+      "worst": "O(n\u00b7amount)"
+    },
+    "spaceComplexity": "O(amount)",
+    "description": "Given a set of coin denominations and a target amount, find the minimum number of coins needed. A 1-D DP array is filled bottom-up: dp[a] = min coins to make amount a. For each amount, every coin is tried and the best sub-result is reused \u2014 classic overlapping subproblems.",
+    "tags": [
+      "Dynamic Programming",
+      "Bottom-Up",
+      "Optimization",
+      "Overlapping Subproblems",
+      "Traceback"
+    ],
+    "variables": [
+      "amount_left",
+      "min_coins",
+      "last_coin"
+    ],
+    "counters": [
+      "updates",
+      "coin_uses"
+    ]
+  },
+  {
+    "id": "kmeans",
+    "name": "K-Means Clustering",
+    "category": "ml",
+    "categoryLabel": "Machine Learning",
+    "difficulty": "intermediate",
+    "engine": "canvasEngine",
+    "icon": "fa-circle-nodes",
+    "input": {
+      "type": "canvas-points",
+      "defaultK": 3
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b7k\u00b7i)",
+      "average": "O(n\u00b7k\u00b7i)",
+      "worst": "O(n\u00b2\u00b7k\u00b7i)"
+    },
+    "spaceComplexity": "O(n + k)",
+    "description": "K-Means partitions n data points into k clusters. Each iteration assigns every point to the nearest centroid, then recomputes centroids as the mean of their cluster.",
+    "tags": [
+      "Unsupervised ML",
+      "Clustering",
+      "Euclidean Distance",
+      "Iterative",
+      "Convergence"
+    ],
+    "variables": [
+      "k",
+      "points",
+      "iteration",
+      "status",
+      "changed",
+      "max_move",
+      "wcss",
+      "clusters"
+    ],
+    "counters": [
+      "iterations",
+      "reassignments",
+      "comparisons"
+    ]
+  },
+  {
+    "id": "knn",
+    "name": "K-Nearest Neighbors",
+    "category": "ml",
+    "categoryLabel": "Machine Learning",
+    "difficulty": "intermediate",
+    "engine": "canvasEngine",
+    "icon": "fa-people-arrows",
+    "input": {
+      "type": "canvas-points",
+      "defaultK": 3
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b7d)",
+      "average": "O(n\u00b7d)",
+      "worst": "O(n\u00b7d)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "KNN classifies a new point based on the majority class among its k nearest neighbors, using Euclidean distance. A lazy learner with no explicit training phase.",
+    "tags": [
+      "Supervised ML",
+      "Classification",
+      "Lazy Learner",
+      "Distance-Based"
+    ],
+    "variables": [
+      "k",
+      "query_x",
+      "query_y",
+      "status",
+      "neighbors_found",
+      "distances",
+      "query_point",
+      "votes",
+      "winner_class"
+    ],
+    "counters": [
+      "distance_calculations",
+      "sorts",
+      "k_neighbors"
+    ]
+  },
+  {
+    "id": "linear-regression",
+    "name": "Linear Regression",
+    "category": "ml",
+    "categoryLabel": "Machine Learning",
+    "difficulty": "intermediate",
+    "engine": "canvasEngine",
+    "icon": "fa-chart-line",
+    "input": {
+      "type": "canvas-scatter"
+    },
+    "timeComplexity": {
+      "best": "O(n\u00b7epochs)",
+      "average": "O(n\u00b7epochs)",
+      "worst": "O(n\u00b7epochs)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "Linear Regression fits a line y = mx + b to data using gradient descent. Each iteration adjusts m and b to minimize the Mean Squared Error (MSE) loss.",
+    "tags": [
+      "Supervised ML",
+      "Regression",
+      "Gradient Descent",
+      "MSE Loss"
+    ],
+    "variables": [
+      "learning_rate",
+      "iteration",
+      "m",
+      "b",
+      "mse",
+      "r2",
+      "final_m",
+      "final_b"
+    ],
+    "counters": [
+      "epochs",
+      "gradient_steps"
+    ]
+  },
+  {
+    "id": "euclidean-algorithm",
+    "name": "Euclidean Algorithm",
+    "category": "math",
+    "categoryLabel": "Mathematics",
+    "difficulty": "beginner",
+    "engine": "mathEngine",
+    "icon": "fa-calculator",
+    "input": {
+      "type": "two-numbers",
+      "labelA": "Number A",
+      "labelB": "Number B",
+      "defaultA": 56,
+      "defaultB": 98
+    },
+    "timeComplexity": {
+      "best": "O(1)",
+      "average": "O(log min(a,b))",
+      "worst": "O(log min(a,b))"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "The Euclidean Algorithm finds the Greatest Common Divisor (GCD) of two numbers by repeatedly replacing the larger number with the remainder of division. Dates back to 300 BCE.",
+    "tags": [
+      "GCD",
+      "Number Theory",
+      "Modular Arithmetic",
+      "Iterative"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "remainder",
+      "gcd",
+      "steps"
+    ],
+    "counters": [
+      "iterations"
+    ]
+  },
+  {
+    "id": "sieve-of-eratosthenes",
+    "name": "Sieve of Eratosthenes",
+    "category": "math",
+    "categoryLabel": "Mathematics",
+    "difficulty": "beginner",
+    "engine": "mathEngine",
+    "icon": "fa-grip",
+    "input": {
+      "type": "single-number",
+      "label": "Find all primes up to N",
+      "defaultValue": 100,
+      "min": 10,
+      "max": 200
+    },
+    "timeComplexity": {
+      "best": "O(n log log n)",
+      "average": "O(n log log n)",
+      "worst": "O(n log log n)"
+    },
+    "spaceComplexity": "O(n)",
+    "description": "The Sieve of Eratosthenes finds all prime numbers up to n by iteratively marking multiples of each prime as composite. One of the most ancient and efficient algorithms.",
+    "tags": [
+      "Primes",
+      "Number Theory",
+      "Sieving",
+      "Ancient Algorithm"
+    ],
+    "variables": [
+      "limit",
+      "current_prime",
+      "primes_found",
+      "composites_marked",
+      "largest_prime"
+    ],
+    "counters": [
+      "primes_found",
+      "composites_marked"
+    ]
+  },
+  {
+    "id": "rsa-encryption",
+    "name": "RSA Encryption",
+    "category": "math",
+    "categoryLabel": "Mathematics",
+    "difficulty": "advanced",
+    "engine": "mathEngine",
+    "icon": "fa-lock",
+    "input": {
+      "type": "rsa",
+      "defaultP": 61,
+      "defaultQ": 53,
+      "defaultMessage": 42
+    },
+    "timeComplexity": {
+      "best": "O(log\u00b2 n)",
+      "average": "O(log\u00b2 n)",
+      "worst": "O(log\u00b2 n)"
+    },
+    "spaceComplexity": "O(1)",
+    "description": "RSA is an asymmetric encryption algorithm based on the difficulty of factoring large numbers. Uses a public key (e, n) to encrypt and a private key (d, n) to decrypt.",
+    "tags": [
+      "Cryptography",
+      "Asymmetric",
+      "Public Key",
+      "Modular Exponentiation"
+    ],
+    "variables": [
+      "p",
+      "q",
+      "n",
+      "phi",
+      "e",
+      "d",
+      "M",
+      "C",
+      "decrypted"
+    ],
+    "counters": [
+      "computations",
+      "transmissions"
+    ]
+  }
+]

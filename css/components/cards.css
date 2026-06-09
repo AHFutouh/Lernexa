@@ -1,0 +1,197 @@
+/* ════════════════════════════════════════════════════════════
+   LERNEXA PRO — Algorithm Cards Component
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Catalog Card ────────────────────────────────────────── */
+.algo-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.algo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.algo-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-blue);
+}
+.algo-card:hover::before { opacity: 1; }
+
+/* Card header */
+.algo-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+.algo-card-header i {
+  font-size: var(--text-2xl);
+  color: var(--accent-blue);
+  transition: transform var(--transition-spring);
+}
+.algo-card:hover .algo-card-header i { transform: scale(1.15) rotate(-5deg); }
+
+/* Category badges */
+.algo-category {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.algo-category.sorting     { background: var(--cat-sorting-dim);     color: var(--cat-sorting);     border: 1px solid rgba(0,240,255,0.2); }
+.algo-category.searching   { background: var(--cat-searching-dim);   color: var(--cat-searching);   border: 1px solid rgba(57,211,83,0.2); }
+.algo-category.graph       { background: var(--cat-graph-dim);       color: var(--cat-graph);       border: 1px solid rgba(240,136,62,0.2); }
+.algo-category.trees       { background: var(--cat-trees-dim);       color: var(--cat-trees);       border: 1px solid rgba(240,208,96,0.2); }
+.algo-category.structures  { background: var(--cat-structures-dim);  color: var(--cat-structures);  border: 1px solid rgba(121,192,255,0.2); }
+.algo-category.dp          { background: var(--cat-dp-dim);          color: var(--cat-dp);          border: 1px solid rgba(210,168,255,0.2); }
+.algo-category.ml          { background: var(--cat-ml-dim);          color: var(--cat-ml);          border: 1px solid rgba(176,38,255,0.2); }
+.algo-category.math        { background: var(--cat-math-dim);        color: var(--cat-math);        border: 1px solid rgba(255,110,110,0.2); }
+
+/* Difficulty badges */
+.difficulty-badge {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+.difficulty-badge.beginner     { background: var(--diff-beginner-dim);     color: var(--diff-beginner);     border: 1px solid rgba(57,211,83,0.25); }
+.difficulty-badge.intermediate { background: var(--diff-intermediate-dim); color: var(--diff-intermediate); border: 1px solid rgba(240,136,62,0.25); }
+.difficulty-badge.advanced     { background: var(--diff-advanced-dim);     color: var(--diff-advanced);     border: 1px solid rgba(255,110,110,0.25); }
+
+/* Card title */
+.algo-card h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* Complexity row */
+.algo-complexity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Tags */
+.algo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+.algo-tag {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+/* Description */
+.algo-card p.algo-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex: 1;
+  line-height: 1.6;
+}
+
+/* Launch link */
+.algo-launch {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semi);
+  color: var(--accent-blue);
+  margin-top: var(--space-2);
+  transition: gap var(--transition-fast), color var(--transition-fast);
+}
+.algo-card:hover .algo-launch { gap: var(--space-3); }
+
+/* ── Feature Cards (Landing) ─────────────────────────────── */
+.feature-card {
+  padding: var(--space-8);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-blue);
+}
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-lg);
+  background: var(--accent-blue-dim);
+  border: 1px solid rgba(0,240,255,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xl);
+  color: var(--accent-blue);
+  margin-bottom: var(--space-5);
+  transition: transform var(--transition-spring);
+}
+.feature-card:hover .feature-icon { transform: scale(1.1); }
+.feature-card h3 {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semi);
+  margin-bottom: var(--space-3);
+  color: var(--text-primary);
+}
+.feature-card p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ── Stats Card ──────────────────────────────────────────── */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-number {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-mono);
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-subtle);
+}

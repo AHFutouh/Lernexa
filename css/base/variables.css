@@ -1,0 +1,173 @@
+/* ════════════════════════════════════════════════════════════
+   LERNEXA PRO — Design Tokens / CSS Custom Properties
+   Single source of truth for all design decisions.
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── Color Palette ────────────────────────────────────────── */
+  --bg-primary:        #0D1117;
+  --bg-secondary:      #161B22;
+  --bg-tertiary:       #1C2330;
+  --bg-card:           rgba(22, 27, 34, 0.75);
+  --bg-card-hover:     rgba(28, 35, 48, 0.90);
+  --bg-overlay:        rgba(13, 17, 23, 0.92);
+
+  --text-primary:      #E6EDF3;
+  --text-secondary:    #8B949E;
+  --text-muted:        #484F58;
+  --text-inverse:      #0D1117;
+
+  --accent-blue:       #00F0FF;
+  --accent-purple:     #B026FF;
+  --accent-green:      #39D353;
+  --accent-orange:     #F0883E;
+  --accent-red:        #FF6E6E;
+  --accent-yellow:     #F0D060;
+
+  --accent-blue-dim:   rgba(0, 240, 255, 0.12);
+  --accent-purple-dim: rgba(176, 38, 255, 0.12);
+  --accent-green-dim:  rgba(57, 211, 83, 0.12);
+  --accent-orange-dim: rgba(240, 136, 62, 0.12);
+
+  --border-subtle:     rgba(230, 237, 243, 0.07);
+  --border-default:    rgba(230, 237, 243, 0.12);
+  --border-active:     rgba(0, 240, 255, 0.40);
+  --border-purple:     rgba(176, 38, 255, 0.40);
+
+  /* ── Algorithm State Colors ──────────────────────────────── */
+  --color-default:     #30363D;
+  --color-comparing:   #F0883E;
+  --color-swapping:    #FF6E6E;
+  --color-sorted:      #39D353;
+  --color-found:       #00F0FF;
+  --color-visited:     rgba(176, 38, 255, 0.50);
+  --color-path:        #00F0FF;
+  --color-start:       #39D353;
+  --color-end:         #FF6E6E;
+  --color-wall:        #21262D;
+  --color-open:        rgba(0, 240, 255, 0.20);
+  --color-closed:      rgba(176, 38, 255, 0.30);
+  --color-mid:         #F0D060;
+  --color-left-ptr:    #39D353;
+  --color-right-ptr:   #FF6E6E;
+
+  /* ── K-Means / Cluster Palette ───────────────────────────── */
+  --cluster-0:  #00F0FF;
+  --cluster-1:  #B026FF;
+  --cluster-2:  #F0883E;
+  --cluster-3:  #39D353;
+  --cluster-4:  #FF6E6E;
+  --cluster-5:  #F0D060;
+  --cluster-6:  #79C0FF;
+  --cluster-7:  #D2A8FF;
+
+  /* ── Difficulty Colors ───────────────────────────────────── */
+  --diff-beginner:     #39D353;
+  --diff-beginner-dim: rgba(57, 211, 83, 0.12);
+  --diff-intermediate: #F0883E;
+  --diff-intermediate-dim: rgba(240, 136, 62, 0.12);
+  --diff-advanced:     #FF6E6E;
+  --diff-advanced-dim: rgba(255, 110, 110, 0.12);
+
+  /* ── Category Colors ─────────────────────────────────────── */
+  --cat-sorting:       #00F0FF;
+  --cat-sorting-dim:   rgba(0, 240, 255, 0.12);
+  --cat-searching:     #39D353;
+  --cat-searching-dim: rgba(57, 211, 83, 0.12);
+  --cat-graph:         #F0883E;
+  --cat-graph-dim:     rgba(240, 136, 62, 0.12);
+  --cat-trees:         #F0D060;
+  --cat-trees-dim:     rgba(240, 208, 96, 0.12);
+  --cat-structures:    #79C0FF;
+  --cat-structures-dim:rgba(121, 192, 255, 0.12);
+  --cat-dp:            #D2A8FF;
+  --cat-dp-dim:        rgba(210, 168, 255, 0.12);
+  --cat-ml:            #B026FF;
+  --cat-ml-dim:        rgba(176, 38, 255, 0.12);
+  --cat-math:          #FF6E6E;
+  --cat-math-dim:      rgba(255, 110, 110, 0.12);
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+
+  --text-xs:   0.70rem;   /*  11.2px */
+  --text-sm:   0.825rem;  /*  13.2px */
+  --text-base: 1rem;      /*  16px   */
+  --text-lg:   1.125rem;  /*  18px   */
+  --text-xl:   1.25rem;   /*  20px   */
+  --text-2xl:  1.5rem;    /*  24px   */
+  --text-3xl:  1.875rem;  /*  30px   */
+  --text-4xl:  2.25rem;   /*  36px   */
+  --text-5xl:  3rem;      /*  48px   */
+  --text-6xl:  3.75rem;   /*  60px   */
+
+  --weight-light:  300;
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semi:   600;
+  --weight-bold:   700;
+  --weight-black:  900;
+
+  /* ── Spacing Scale (4px base) ────────────────────────────── */
+  --space-1:  0.25rem;   /*  4px  */
+  --space-2:  0.5rem;    /*  8px  */
+  --space-3:  0.75rem;   /* 12px  */
+  --space-4:  1rem;      /* 16px  */
+  --space-5:  1.25rem;   /* 20px  */
+  --space-6:  1.5rem;    /* 24px  */
+  --space-8:  2rem;      /* 32px  */
+  --space-10: 2.5rem;    /* 40px  */
+  --space-12: 3rem;      /* 48px  */
+  --space-16: 4rem;      /* 64px  */
+  --space-20: 5rem;      /* 80px  */
+  --space-24: 6rem;      /* 96px  */
+
+  /* ── Borders & Radius ────────────────────────────────────── */
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-xs:   0 1px 2px rgba(0,0,0,0.3);
+  --shadow-sm:   0 1px 4px rgba(0,0,0,0.4);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.6);
+  --shadow-xl:   0 16px 48px rgba(0,0,0,0.7);
+  --shadow-blue:       0 0 24px rgba(0, 240, 255, 0.20);
+  --shadow-purple:     0 0 24px rgba(176, 38, 255, 0.20);
+  --shadow-glow-blue:  0 0 48px rgba(0, 240, 255, 0.40);
+  --shadow-glow-purple:0 0 48px rgba(176, 38, 255, 0.40);
+  --shadow-glow-green: 0 0 24px rgba(57, 211, 83, 0.30);
+
+  /* ── Glassmorphism ───────────────────────────────────────── */
+  --glass-bg:     rgba(22, 27, 34, 0.65);
+  --glass-blur:   blur(16px);
+  --glass-border: 1px solid rgba(230, 237, 243, 0.07);
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.3s ease;
+  --transition-slow:   0.5s ease;
+  --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --navbar-height:      60px;
+  --sidebar-width:      280px;
+  --panel-width:        320px;
+  --content-max-width:  1280px;
+  --catalog-max-width:  1400px;
+
+  /* ── Z-Index Scale ───────────────────────────────────────── */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-overlay: 50;
+  --z-modal:   100;
+  --z-navbar:  200;
+  --z-toast:   300;
+}

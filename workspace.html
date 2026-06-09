@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace — Lernexa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/base/variables.css" />
+  <link rel="stylesheet" href="css/base/reset.css" />
+  <link rel="stylesheet" href="css/components/navbar.css" />
+  <link rel="stylesheet" href="css/components/cards.css" />
+  <link rel="stylesheet" href="css/components/controls.css" />
+  <link rel="stylesheet" href="css/pages/workspace.css" />
+</head>
+<body class="workspace-page">
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html" class="active">Library</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="navMobileMenu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Algorithm Library</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════ 404 STATE ═══════════ -->
+  <div class="ws-404" id="ws404">
+    <div class="ws-404-code">404</div>
+    <h2 class="ws-404-title">Algorithm Not Found</h2>
+    <p class="ws-404-msg">
+      The algorithm
+      <span class="ws-404-highlight" id="ws404AlgoId">???</span>
+      doesn't exist in our library yet.<br />
+      You'll be redirected to the Algorithm Library automatically.
+    </p>
+
+    <!-- Countdown ring -->
+    <div class="ws-404-countdown">
+      <div class="countdown-ring">
+        <svg viewBox="0 0 52 52">
+          <circle class="countdown-track" cx="26" cy="26" r="23" />
+          <circle class="countdown-fill" id="countdownFill" cx="26" cy="26" r="23"
+            stroke-dasharray="144.51" stroke-dashoffset="0" />
+        </svg>
+        <div class="countdown-number" id="countdownNumber">5</div>
+      </div>
+      <span class="countdown-text">seconds until redirect</span>
+    </div>
+
+    <a href="catalog.html" class="btn btn-primary">
+      <i class="fa-solid fa-compass"></i> Go to Library Now
+    </a>
+  </div>
+
+  <!-- ═══════════ WORKSPACE BODY ═══════════ -->
+  <div class="ws-body" id="wsBody">
+
+    <!-- ─── LEFT SIDEBAR ─── -->
+    <aside class="ws-sidebar" id="wsSidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Algorithms</span>
+        <button class="sidebar-toggle-btn" id="sidebarToggle" title="Collapse sidebar">
+          <i class="fa-solid fa-angles-left"></i>
+        </button>
+      </div>
+      <div class="sidebar-algo-list" id="sidebarList">
+        <!-- Injected by workspace.js -->
+      </div>
+    </aside>
+
+    <!-- ─── MAIN STAGE ─── -->
+    <section class="ws-main" id="wsMain">
+
+      <!-- Algo header bar -->
+      <div class="ws-algo-header">
+        <a href="catalog.html" class="ws-back-btn" title="Back to library">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="ws-algo-name" id="wsAlgoName">Loading…</h1>
+        <span class="ws-algo-category" id="wsAlgoCat"></span>
+        <span class="difficulty-badge" id="wsAlgoDiff" style="margin-left:auto;"></span>
+      </div>
+
+      <!-- Canvas area — engines render here -->
+      <div class="ws-canvas-area" id="wsCanvasArea">
+        <!-- Engine mounts here -->
+      </div>
+
+      <!-- Control panel -->
+      <div class="ws-controls" id="wsControls">
+
+        <!-- ── Primary Row: always visible ── -->
+        <div class="ctrl-primary-row">
+          <!-- Playback -->
+          <div class="ctrl-buttons">
+            <button class="ctrl-btn play" id="btnPlay" title="Play (Space)">
+              <i class="fa-solid fa-play"></i> Play
+            </button>
+            <button class="ctrl-btn pause" id="btnPause" title="Pause (Space)" disabled>
+              <i class="fa-solid fa-pause"></i> Pause
+            </button>
+            <button class="ctrl-btn reset" id="btnReset" title="Reset (R)">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+            <div class="ctrl-divider"></div>
+            <button class="ctrl-btn step-back" id="btnStepBack" title="Step Back (←)" disabled>
+              <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button class="ctrl-btn step-fwd" id="btnStepFwd" title="Step Forward (→)" disabled>
+              <i class="fa-solid fa-forward-step"></i>
+            </button>
+          </div>
+
+          <div class="ctrl-divider"></div>
+
+          <!-- Speed slider -->
+          <div class="ctrl-speed-group">
+            <span class="ctrl-speed-label">Speed</span>
+            <input type="range" class="range-slider" id="speedSlider" min="1" max="8" value="4" />
+            <span class="slider-value" id="speedValue" style="min-width:28px;">1×</span>
+          </div>
+        </div>
+
+        <!-- ── Secondary Row: algo-specific controls ── -->
+        <div class="ctrl-secondary-row" id="ctrlSecondaryRow">
+
+          <!-- Array size (sorting only) -->
+          <div class="ctrl-group" id="arraySizeGroup" style="display:none;">
+            <span class="ctrl-group-label">Size</span>
+            <input type="range" class="range-slider range-slider-sm" id="arraySizeSlider" min="5" max="80" value="30" />
+            <span class="slider-value" id="arraySizeValue" style="min-width:28px;">30</span>
+          </div>
+
+          <!-- Custom input (search/sort) -->
+          <div class="ctrl-group" id="ctrlInputGroup" style="display:none;">
+            <input type="text" class="input-field input-field-sm" id="arrayInput" placeholder="e.g. 2, 5, 8, 12" autocomplete="off" />
+            <input type="text" class="input-field input-field-sm" id="targetInput" placeholder="Target" style="max-width:90px; display:none;" autocomplete="off" />
+            <button class="ctrl-btn" id="btnApplyInput"><i class="fa-solid fa-check"></i> Apply</button>
+          </div>
+
+          <!-- Expression input (infix/postfix converters) -->
+          <div class="ctrl-group" id="ctrlExpressionGroup" style="display:none;">
+            <input type="text" class="input-field input-field-sm" id="expressionInput" placeholder="e.g. a+b*c-d/e" autocomplete="off" style="min-width:180px;" />
+            <button class="ctrl-btn" id="btnApplyExpression"><i class="fa-solid fa-check"></i> Apply</button>
+          </div>
+
+          <!-- Depth limit input (DLS) -->
+          <div class="ctrl-group" id="ctrlDepthLimitGroup" style="display:none;">
+            <label class="ctrl-label" style="white-space:nowrap;">Depth Limit</label>
+            <input type="number" class="input-field input-field-sm" id="depthLimitInput" value="3" min="1" max="10" style="width:70px;" />
+          </div>
+
+          <!-- Sort edge cases -->
+          <div class="ctrl-group" id="ctrlSortExtras" style="display:none;">
+            <select class="ctrl-select" id="edgeCaseSelect">
+              <option value="random">Random</option>
+              <option value="reversed">Reversed</option>
+              <option value="nearly_sorted">Nearly Sorted</option>
+              <option value="few_unique">Few Unique</option>
+              <option value="all_equal">All Equal</option>
+              <option value="already_sorted">Already Sorted</option>
+            </select>
+            <button class="ctrl-btn" id="btnSortRandom">
+              <i class="fa-solid fa-dice"></i> Generate
+            </button>
+          </div>
+
+          <!-- Pathfinding (grid) -->
+          <div class="ctrl-group" id="ctrlPathExtra" style="display:none;">
+            <button class="ctrl-btn" id="btnGenMaze"><i class="fa-solid fa-border-all"></i> Maze</button>
+            <button class="ctrl-btn" id="btnClearGrid"><i class="fa-solid fa-trash"></i> Clear</button>
+          </div>
+
+          <!-- A* Heuristic -->
+          <div class="ctrl-group" id="ctrlHeuristicGroup" style="display:none;">
+            <span class="ctrl-group-label">Heuristic</span>
+            <select class="ctrl-select" id="heuristicSelect">
+              <option value="manhattan">Manhattan</option>
+              <option value="euclidean">Euclidean</option>
+              <option value="diagonal">Diagonal</option>
+            </select>
+          </div>
+
+          <!-- K slider -->
+          <div class="ctrl-group" id="kSliderGroup" style="display:none;">
+            <span class="ctrl-group-label">K</span>
+            <input type="range" class="range-slider range-slider-sm" id="kSlider" min="2" max="7" value="3" />
+            <span class="slider-value" id="kValue" style="min-width:18px;">3</span>
+          </div>
+
+          <!-- Interactive DS controls -->
+          <div class="ctrl-group ctrl-ds-group" id="ctrlInteractiveDS" style="display:none;">
+            <input type="number" class="input-field input-field-sm" id="dsValueInput" placeholder="Value" style="width:80px;" />
+            <div id="dsOpsStack" style="display:none;" class="ctrl-ops-row">
+              <button class="ctrl-btn btn-push-op" id="btnDSPush"><i class="fa-solid fa-arrow-down"></i> Push</button>
+              <button class="ctrl-btn btn-pop-op"  id="btnDSPop"><i class="fa-solid fa-arrow-up"></i> Pop</button>
+              <button class="ctrl-btn btn-peek-op" id="btnDSPeek"><i class="fa-solid fa-eye"></i> Peek</button>
+            </div>
+            <div id="dsOpsQueue" style="display:none;" class="ctrl-ops-row">
+              <button class="ctrl-btn btn-push-op"  id="btnDSEnqueue"><i class="fa-solid fa-plus"></i> Enqueue</button>
+              <button class="ctrl-btn btn-pop-op"   id="btnDSDequeue"><i class="fa-solid fa-minus"></i> Dequeue</button>
+              <button class="ctrl-btn btn-peek-op"  id="btnDSPeekQ"><i class="fa-solid fa-eye"></i> Peek</button>
+            </div>
+            <div id="dsOpsList" style="display:none;" class="ctrl-ops-row">
+              <select class="ctrl-select" id="dsInsertPos">
+                <option value="head">Head</option>
+                <option value="tail">Tail</option>
+                <option value="index">At Index</option>
+              </select>
+              <input type="number" class="input-field input-field-sm" id="dsIndexInput" placeholder="idx" style="width:50px; display:none;" min="0" />
+              <button class="ctrl-btn btn-push-op" id="btnDSInsert"><i class="fa-solid fa-plus"></i> Insert</button>
+              <button class="ctrl-btn btn-pop-op"  id="btnDSRemove"><i class="fa-solid fa-trash"></i> Remove</button>
+              <button class="ctrl-btn btn-peek-op" id="btnDSListSearch"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            </div>
+            <button class="ctrl-btn btn-clear-op" id="btnDSClear"><i class="fa-solid fa-rotate-left"></i> Clear</button>
+          </div>
+
+          <!-- Tree Traversals: mode selector -->
+          <div class="ctrl-group traversal-mode-group" id="traversalModeGroup" style="display:none;">
+            <span class="ctrl-group-label">Mode</span>
+            <div class="traversal-mode-btns">
+              <button class="ctrl-btn traversal-mode-btn active" data-mode="inorder" title="In-order: Left → Root → Right">In-order</button>
+              <button class="ctrl-btn traversal-mode-btn" data-mode="preorder" title="Pre-order: Root → Left → Right">Pre-order</button>
+              <button class="ctrl-btn traversal-mode-btn" data-mode="postorder" title="Post-order: Left → Right → Root">Post-order</button>
+              <button class="ctrl-btn traversal-mode-btn" data-mode="levelorder" title="Level-order: BFS left→right">Level-order</button>
+            </div>
+          </div>
+
+          <!-- BST: ops sequence display -->
+          <div class="ctrl-group ctrl-bst-ops-display" id="bstOpsDisplayGroup" style="display:none;">
+            <span class="ctrl-group-label">Ops</span>
+            <div class="bst-ops-display" id="bstOpsDisplay" title="Operation sequence (read-only preview)"></div>
+            <button class="ctrl-btn btn-generate" id="btnBSTRandomize" title="Randomize BST values">
+              <i class="fa-solid fa-dice"></i>
+            </button>
+          </div>
+
+          <!-- BST controls -->
+          <div class="ctrl-group ctrl-bst-group" id="ctrlInteractiveBST" style="display:none;">
+            <input type="number" class="input-field input-field-sm" id="bstValueInput" placeholder="Value" style="width:80px;" />
+            <button class="ctrl-btn btn-push-op" id="btnBSTInsert"><i class="fa-solid fa-plus"></i> Insert</button>
+            <button class="ctrl-btn btn-pop-op"  id="btnBSTDelete"><i class="fa-solid fa-trash"></i> Delete</button>
+            <button class="ctrl-btn btn-peek-op" id="btnBSTSearch"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            <button class="ctrl-btn btn-clear-op" id="btnBSTReset"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            <div class="ctrl-divider"></div>
+            <select class="ctrl-select" id="traversalModeSelect">
+              <option value="inorder">In-order</option>
+              <option value="preorder">Pre-order</option>
+              <option value="postorder">Post-order</option>
+              <option value="levelorder">Level-order</option>
+            </select>
+            <button class="ctrl-btn btn-traverse-op" id="btnBSTTraverse"><i class="fa-solid fa-play"></i> Traverse</button>
+          </div>
+
+        </div><!-- /ctrl-secondary-row -->
+
+      </div><!-- /ws-controls -->
+    </section><!-- /ws-main -->
+
+    <!-- ─── RIGHT DASHBOARD ─── -->
+    <aside class="ws-dashboard" id="wsDashboard">
+
+      <!-- ZONE 1: Badges (12%) -->
+      <div class="dash-badges-zone">
+        <div class="dash-badge dash-badge-time">
+          <span class="db-icon"><i class="fa-solid fa-clock"></i></span>
+          <div class="db-body">
+            <span class="db-label">Time</span>
+            <div class="db-vals">
+              <span class="db-chip db-best"  id="cmpxBest">—</span>
+              <span class="db-chip db-avg"   id="cmpxAvg">—</span>
+              <span class="db-chip db-worst" id="cmpxWorst">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="dash-badge dash-badge-space">
+          <span class="db-icon"><i class="fa-solid fa-memory"></i></span>
+          <div class="db-body">
+            <span class="db-label">Space</span>
+            <span class="db-chip db-space" id="cmpxSpace">—</span>
+          </div>
+        </div>
+        <div class="dash-badge dash-badge-cat">
+          <span class="db-icon"><i class="fa-solid fa-tag"></i></span>
+          <div class="db-body">
+            <span class="db-label">Type</span>
+            <span class="db-chip db-cat" id="wsAlgoCatBadge">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ZONE 2: Variables (9%) -->
+      <div class="dash-vars-zone">
+        <span class="dash-zone-label">Variables</span>
+        <table class="dash-compact-table">
+          <tbody id="varWatcherBody"></tbody>
+        </table>
+      </div>
+
+      <!-- ZONE 3: Counters (9%) -->
+      <div class="dash-counters-zone">
+        <span class="dash-zone-label">Counters</span>
+        <div class="dash-counters-row" id="countersGrid"></div>
+      </div>
+
+      <!-- ZONE 4: Step Log (70%) -->
+      <div class="dash-log-zone" id="dashLog">
+        <div class="dash-log-topbar">
+          <span class="dash-zone-label" style="margin:0;">Step Log</span>
+          <button class="dash-clear-btn" id="btnClearLog">Clear</button>
+        </div>
+        <div class="dash-log-scroll" id="stepLog">
+          <div class="log-entry info">Press Play to start.</div>
+        </div>
+      </div>
+
+      <!-- Hidden elements for JS compatibility -->
+      <div style="display:none;" id="dashComplexity"></div>
+      <div style="display:none;" id="dashBody"></div>
+      <div style="display:none;" id="algoTags"></div>
+      <p  style="display:none;" id="dashDesc"></p>
+      <div style="display:none;" id="btnToggleLog"></div>
+
+    </aside><!-- /ws-dashboard -->
+
+  </div><!-- /ws-body -->
+
+  <!-- JS — order matters -->
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/fetcher.js"></script>
+  <!-- Engines -->
+  <script src="js/engines/barsEngine.js"></script>
+  <script src="js/engines/memoryEngine.js"></script>
+  <script src="js/engines/gridEngine.js"></script>
+  <script src="js/engines/canvasEngine.js"></script>
+  <script src="js/engines/graphEngine.js"></script>
+  <script src="js/engines/networkEngine.js"></script>
+  <script src="js/engines/listEngine.js"></script>
+  <script src="js/engines/mathEngine.js"></script>
+  <script src="js/engines/dpEngine.js"></script>
+  <!-- Algorithms -->
+  <script src="js/algorithms/searching/linear.js"></script>
+  <script src="js/algorithms/searching/binary.js"></script>
+  <script src="js/algorithms/searching/interpolation.js"></script>
+  <script src="js/algorithms/sorting/bubble.js"></script>
+  <script src="js/algorithms/sorting/selection.js"></script>
+  <script src="js/algorithms/sorting/insertion.js"></script>
+  <script src="js/algorithms/sorting/merge.js"></script>
+  <script src="js/algorithms/sorting/heap.js"></script>
+  <script src="js/algorithms/sorting/quick.js"></script>
+  <script src="js/algorithms/structures/stack.js"></script>
+  <script src="js/algorithms/structures/queue.js"></script>
+  <script src="js/algorithms/structures/linkedList.js"></script>
+  <script src="js/algorithms/structures/infixToPostfix.js"></script>
+  <script src="js/algorithms/structures/infixToPrefix.js"></script>
+  <script src="js/algorithms/structures/postfixEvaluator.js"></script>
+  <script src="js/algorithms/graph/bfs.js"></script>
+  <script src="js/algorithms/graph/dfs.js"></script>
+  <script src="js/algorithms/graph/astar.js"></script>
+  <script src="js/algorithms/graph/dijkstra.js"></script>
+  <script src="js/algorithms/graph/ucs.js"></script>
+  <script src="js/algorithms/graph/dls.js"></script>
+  <script src="js/algorithms/graph/ids.js"></script>
+  <script src="js/algorithms/graph/greedy.js"></script>
+  <script src="js/algorithms/graph/maze.js"></script>
+  <script src="js/algorithms/trees/bst.js"></script>
+  <script src="js/algorithms/trees/traversals.js"></script>
+  <script src="js/algorithms/dp/knapsack.js"></script>
+  <script src="js/algorithms/dp/fractionalKnapsack.js"></script>
+  <script src="js/algorithms/dp/coinChange.js"></script>
+  <script src="js/algorithms/ml/kmeans.js"></script>
+  <script src="js/algorithms/ml/knn.js"></script>
+  <script src="js/algorithms/ml/linearRegression.js"></script>
+  <script src="js/algorithms/math/euclidean.js"></script>
+  <script src="js/algorithms/math/sieve.js"></script>
+  <script src="js/algorithms/math/rsa.js"></script>
+  <!-- Orchestrator -->
+  <script src="js/pages/workspace.js"></script>
+    <script src="js/core/router.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      Router.boot();
+    });
+  </script>
+</body>
+</html>

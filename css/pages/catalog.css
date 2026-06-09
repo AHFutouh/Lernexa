@@ -1,0 +1,276 @@
+/* ════════════════════════════════════════════════════════════
+   LERNEXA PRO — Catalog Page (catalog.html)
+   ════════════════════════════════════════════════════════════ */
+
+.catalog-page {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+}
+
+/* ════════ PAGE HEADER ════════ */
+.catalog-hero {
+  position: relative;
+  padding: var(--space-16) var(--space-6) var(--space-12);
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,240,255,0.03) 0%, transparent 100%);
+  border-bottom: var(--glass-border);
+}
+.catalog-hero-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 0%,
+    rgba(0,240,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.catalog-hero-content { position: relative; z-index: 1; }
+.catalog-hero h1 {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: var(--weight-black);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+}
+.catalog-hero p {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto var(--space-8);
+}
+
+/* ════════ TOOLBAR (Search + Filters) ════════ */
+.catalog-toolbar {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: var(--z-raised);
+  background: rgba(13,17,23,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: var(--glass-border);
+  padding: var(--space-4) var(--space-6);
+}
+.toolbar-inner {
+  max-width: var(--catalog-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Search row */
+.toolbar-search-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.search-bar-wrapper { flex: 1; max-width: 480px; }
+
+/* Results count */
+.results-count {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  margin-left: auto;
+}
+.results-count span {
+  color: var(--accent-blue);
+  font-weight: var(--weight-semi);
+}
+
+/* Filters row */
+.toolbar-filters-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.filter-group-label {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  margin-right: var(--space-1);
+}
+.filter-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-subtle);
+  margin: 0 var(--space-2);
+  flex-shrink: 0;
+}
+
+/* Difficulty row — slightly indented/styled to be clearly separate */
+.toolbar-diff-row {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-3);
+  margin-top: calc(var(--space-1) * -1);
+}
+/* Difficulty buttons use purple accent when active */
+.filter-btn.diff-btn.active {
+  background: rgba(176,38,255,0.12);
+  border-color: rgba(176,38,255,0.4);
+  color: var(--accent-purple);
+}
+
+/* ════════ MAIN CONTENT ════════ */
+.catalog-main {
+  max-width: var(--catalog-max-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) var(--space-16);
+}
+
+/* ── Category Sections ───────────────────────────────────── */
+.category-section { margin-bottom: var(--space-16); }
+.category-section:last-child { margin-bottom: 0; }
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.category-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-base);
+}
+.category-header h2 {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+}
+.category-count {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+}
+
+/* ── Cards Grid ──────────────────────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.catalog-empty {
+  text-align: center;
+  padding: var(--space-24) var(--space-6);
+  display: none;
+}
+.catalog-empty.visible { display: block; }
+.catalog-empty-icon {
+  font-size: 3rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  animation: float 4s ease-in-out infinite;
+}
+.catalog-empty h3 {
+  font-size: var(--text-2xl);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+.catalog-empty p {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* ── Loading Skeletons ───────────────────────────────────── */
+.card-skeleton {
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.skel-badge  { height: 22px; width: 90px; border-radius: var(--radius-full); }
+.skel-title  { height: 26px; width: 70%; }
+.skel-row    { height: 16px; width: 55%; }
+.skel-text   { height: 12px; width: 100%; }
+.skel-text.short { width: 80%; }
+.skel-btn    { height: 18px; width: 100px; margin-top: var(--space-2); }
+
+
+/* ════════ RESPONSIVE ════════ */
+@media (max-width: 1024px) {
+  .catalog-hero { padding: var(--space-12) var(--space-6) var(--space-8); }
+  .catalog-hero h1 { font-size: var(--text-4xl); }
+  .toolbar-inner { padding: var(--space-3) var(--space-4); }
+}
+
+@media (max-width: 900px) {
+  .cards-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .toolbar-search-row { flex-wrap: wrap; }
+  .results-count { margin-left: 0; }
+}
+
+@media (max-width: 768px) {
+  .catalog-hero { padding: var(--space-10) var(--space-4) var(--space-6); }
+  .catalog-hero h1 { font-size: var(--text-3xl); }
+  .catalog-hero p { font-size: var(--text-sm); }
+  .toolbar-search-row { flex-direction: column; align-items: stretch; gap: var(--space-2); }
+  .search-bar-wrapper { max-width: 100%; }
+  .results-count { text-align: right; }
+  .toolbar-filters-row { gap: var(--space-2); flex-wrap: wrap; }
+  .toolbar-diff-row { gap: var(--space-2); flex-wrap: wrap; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .category-header h2 { font-size: var(--text-lg); }
+}
+
+@media (max-width: 600px) {
+  .catalog-toolbar { padding: var(--space-3) var(--space-4); }
+  .catalog-hero { padding: var(--space-8) var(--space-4) var(--space-4); }
+  .catalog-hero h1 { font-size: var(--text-2xl); }
+  .cards-grid { grid-template-columns: 1fr; }
+  .toolbar-filters-row { gap: var(--space-2); }
+  .toolbar-diff-row { gap: var(--space-2); }
+  .filter-divider { display: none; }
+  .filter-btn { font-size: 11px; padding: 5px 10px; }
+}
+
+@media (max-width: 480px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .toolbar-inner { padding: var(--space-3); }
+  .filter-btn { font-size: 11px; padding: 5px 8px; }
+}
+
+/* ════════ SITE FOOTER ════════ */
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: var(--bg-secondary);
+  padding: var(--space-6) 0;
+}
+.footer-inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.footer-logo { font-family: var(--font-mono); font-weight: var(--weight-bold); color: var(--text-primary); }
+.footer-copy { font-size: var(--text-sm); color: var(--text-muted); }
+.footer-nav { display: flex; gap: var(--space-6); }
+.footer-nav a { font-size: var(--text-sm); color: var(--text-muted); transition: color var(--transition-fast); }
+.footer-nav a:hover { color: var(--accent-blue); }
+@media (max-width: 600px) {
+  .footer-inner { flex-direction: column; text-align: center; gap: var(--space-3); }
+  .footer-nav { justify-content: center; }
+}

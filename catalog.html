@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algorithm Library — Lernexa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/base/variables.css" />
+  <link rel="stylesheet" href="css/base/reset.css" />
+  <link rel="stylesheet" href="css/components/navbar.css" />
+  <link rel="stylesheet" href="css/components/cards.css" />
+  <link rel="stylesheet" href="css/components/controls.css" />
+  <link rel="stylesheet" href="css/pages/catalog.css" />
+</head>
+<body class="catalog-page">
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Library</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="navMobileMenu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Algorithm Library</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════ PAGE HERO ═══════════ -->
+  <header class="catalog-hero">
+    <div class="catalog-hero-glow" aria-hidden="true"></div>
+    <div class="catalog-hero-content">
+      <span class="section-tag"><i class="fa-solid fa-compass"></i> Algorithm Library</span>
+      <h1>Explore <span class="gradient-text">29 Algorithms</span></h1>
+      <p>Filter by category and difficulty. Click any card to open the interactive visualizer.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════ STICKY TOOLBAR ═══════════ -->
+  <div class="catalog-toolbar" id="catalogToolbar">
+    <div class="toolbar-inner">
+
+      <!-- Search + Count -->
+      <div class="toolbar-search-row">
+        <div class="search-bar-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            class="search-bar"
+            id="searchInput"
+            placeholder="Search algorithms, tags, complexity..."
+            autocomplete="off"
+          />
+        </div>
+        <span class="results-count" id="resultsCount">
+          Showing <span id="resultsNum">29</span> algorithms
+        </span>
+      </div>
+
+      <!-- Category Filters -->
+      <div class="toolbar-filters-row" id="filtersRow">
+        <span class="filter-group-label">Category:</span>
+        <button class="filter-btn active" data-filter="category" data-value="all">
+          <i class="fa-solid fa-border-all"></i> All
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="sorting">
+          <i class="fa-solid fa-arrow-up-wide-short"></i> Sorting
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="searching">
+          <i class="fa-solid fa-magnifying-glass"></i> Searching
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="graph">
+          <i class="fa-solid fa-route"></i> Graph
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="trees">
+          <i class="fa-solid fa-tree"></i> Trees
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="structures">
+          <i class="fa-solid fa-layer-group"></i> Structures
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="dp">
+          <i class="fa-solid fa-coins"></i> Dynamic Prog.
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="ml">
+          <i class="fa-solid fa-brain"></i> ML
+        </button>
+        <button class="filter-btn" data-filter="category" data-value="math">
+          <i class="fa-solid fa-calculator"></i> Math
+        </button>
+      </div>
+
+      <!-- Difficulty Filters (separate row) -->
+      <div class="toolbar-filters-row toolbar-diff-row" id="diffRow">
+        <span class="filter-group-label">Difficulty:</span>
+        <button class="filter-btn diff-btn active" data-filter="difficulty" data-value="all" id="diffAllBtn">
+          All
+        </button>
+        <button class="filter-btn diff-btn" data-filter="difficulty" data-value="beginner">
+          <i class="fa-solid fa-circle" style="color:var(--diff-beginner); font-size:8px;"></i> Beginner
+        </button>
+        <button class="filter-btn diff-btn" data-filter="difficulty" data-value="intermediate">
+          <i class="fa-solid fa-circle" style="color:var(--diff-intermediate); font-size:8px;"></i> Intermediate
+        </button>
+        <button class="filter-btn diff-btn" data-filter="difficulty" data-value="advanced">
+          <i class="fa-solid fa-circle" style="color:var(--diff-advanced); font-size:8px;"></i> Advanced
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ MAIN CONTENT ═══════════ -->
+  <main class="catalog-main" id="catalogMain">
+    <!-- Injected by catalog.js -->
+    <div class="catalog-empty" id="catalogEmpty">
+      <div class="catalog-empty-icon"><i class="fa-solid fa-magnifying-glass-minus"></i></div>
+      <h3>No algorithms found</h3>
+      <p>Try adjusting your search or filters.</p>
+    </div>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-logo"><span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span></span>
+      <span class="footer-copy">© 2025 Lernexa · Built for learners.</span>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Library</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/fetcher.js"></script>
+  <script src="js/pages/catalog.js"></script>
+
+</body>
+</html>

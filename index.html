@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lernexa — Your Smart Guide from Confusion to Career</title>
+  <title>Lernexa — Lost in Logic? Watch How.</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500;600&display=swap"
+    rel="stylesheet" />
 
-  <!-- FontAwesome Icons -->
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/variables.css" />
-  <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/base/variables.css" />
+  <link rel="stylesheet" href="css/base/reset.css" />
+  <link rel="stylesheet" href="css/components/navbar.css" />
+  <link rel="stylesheet" href="css/components/cards.css" />
+  <link rel="stylesheet" href="css/components/controls.css" />
+  <link rel="stylesheet" href="css/pages/landing.css" />
 </head>
+
 <body>
 
-  <!-- ===== NAVBAR ===== -->
+  <!-- ═══════════ NAVBAR ═══════════ -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#algorithms">Algorithms</a></li>
-        <li><a href="visualizer.html?type=ds" class="btn btn-ghost">Launch App</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Library</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
+    <div class="nav-mobile-menu" id="navMobileMenu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Algorithm Library</a>
+    </div>
   </nav>
 
   <main>
 
-    <!-- ===== HERO ===== -->
+    <!-- ═══════════ HERO ═══════════ -->
     <section class="hero" id="hero">
+      <canvas id="heroBg" aria-hidden="true"></canvas>
       <div class="hero-bg-grid" aria-hidden="true"></div>
       <div class="hero-glow glow-blue" aria-hidden="true"></div>
       <div class="hero-glow glow-purple" aria-hidden="true"></div>
@@ -52,8 +63,8 @@
         </div>
 
         <h1 class="hero-title">
-          Lost in Tech?<br />
-          <span class="gradient-text">Start Here.</span>
+          Lost in Logic?<br />
+          <span class="gradient-text">Watch How.</span>
         </h1>
 
         <p class="hero-subtitle">
@@ -63,58 +74,62 @@
         </p>
 
         <div class="hero-actions">
-          <a href="visualizer.html?type=ds" class="btn btn-primary">
-            <i class="fa-solid fa-diagram-project"></i>
-            Explore Data Structures
+          <a href="#features" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            Explore Features
           </a>
-          <a href="visualizer.html?type=ai" class="btn btn-secondary">
-            <i class="fa-solid fa-brain"></i>
-            Explore AI Algorithms
+          <a href="catalog.html" class="btn btn-secondary btn-lg">
+            <i class="fa-solid fa-layer-group"></i>
+            Browse Library
           </a>
         </div>
-
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">4</span>
-            <span class="stat-label">Algorithms</span>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="engine-orbit">
+          <div class="orbit-center glass-card">
+            <i class="fa-solid fa-microchip gradient-text"></i>
           </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat-item">
-            <span class="stat-number">3</span>
-            <span class="stat-label">Visualizers</span>
+          <div class="orbit-node node-1 glass-card">
+            <i class="fa-solid fa-route" style="color: var(--accent-blue)"></i>
           </div>
-          <div class="stat-divider" aria-hidden="true"></div>
-          <div class="stat-item">
-            <span class="stat-number">∞</span>
-            <span class="stat-label">Clarity</span>
+          <div class="orbit-node node-2 glass-card">
+            <i class="fa-solid fa-arrow-up-wide-short" style="color: var(--accent-purple)"></i>
+          </div>
+          <div class="orbit-node node-3 glass-card">
+            <i class="fa-solid fa-brain" style="color: var(--accent-green)"></i>
           </div>
         </div>
       </div>
-
-      <div class="hero-visual" aria-hidden="true">
+      <!-- <div class="hero-visual" aria-hidden="true">
         <div class="code-window">
           <div class="code-window-bar">
             <span class="dot dot-red"></span>
             <span class="dot dot-yellow"></span>
             <span class="dot dot-green"></span>
-            <span class="code-window-title">bubble_sort.js</span>
+            <span class="code-window-title">binary_search.js</span>
           </div>
-          <pre class="code-block"><code><span class="kw">async function</span> <span class="fn">bubbleSort</span>(arr) {
-  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; arr.length; i++) {
-    <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j &lt; arr.length - i - <span class="num">1</span>; j++) {
-      highlight(j, j+<span class="num">1</span>);
-      <span class="kw">if</span> (arr[j] &gt; arr[j+<span class="num">1</span>]) {
-        swap(arr, j, j+<span class="num">1</span>);
-      }
-      <span class="kw">await</span> <span class="fn">sleep</span>(speed);
-    }
+          <pre class="code-block"><code><span class="cm">// Watch every pointer move in real-time</span>
+<span class="kw">async function</span> <span class="fn">binarySearch</span>(arr, target) {
+  <span class="kw">let</span> left = <span class="num">0</span>, right = arr.length - <span class="num">1</span>;
+
+  <span class="kw">while</span> (left &lt;= right) {
+    <span class="kw">let</span> mid = Math.floor((left + right) / <span class="num">2</span>);
+    highlight(left, mid, right);  <span class="cm">// ✦ Live</span>
+
+    <span class="kw">if</span> (arr[mid] === target) <span class="kw">return</span> mid;
+    <span class="kw">if</span> (arr[mid] &lt; target)  left  = mid + <span class="num">1</span>;
+    <span class="kw">else</span>                    right = mid - <span class="num">1</span>;
+
+    <span class="kw">await</span> <span class="fn">sleep</span>(speed);  <span class="cm">// ✦ Yield to browser</span>
   }
+  <span class="kw">return</span> -<span class="num">1</span>;  <span class="cm">// Not found</span>
 }</code></pre>
         </div>
-      </div>
+      </div> -->
     </section>
 
-    <!-- ===== FEATURES ===== -->
+
+    <!-- ═══════════ FEATURES ═══════════ -->
     <section class="features" id="features">
       <div class="section-header">
         <span class="section-tag">Why Lernexa</span>
@@ -122,68 +137,70 @@
         <p>Stop memorizing. Start seeing.</p>
       </div>
 
-      <div class="features-grid">
+      <div class="features-grid features-grid-6">
         <div class="feature-card glass-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-eye"></i>
-          </div>
-          <h3>Live Visualization</h3>
-          <p>Watch every comparison, swap, and path explored in real time. Animations synchronized to each algorithmic step.</p>
+          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3>29 Algorithms</h3>
+          <p>From sorting to ML — fully interactive visualizations across 8 categories.</p>
         </div>
-
         <div class="feature-card glass-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-sliders"></i>
-          </div>
-          <h3>Full Control</h3>
-          <p>Play, pause, reset, and adjust speed from 1× to 5×. You drive the execution.</p>
+          <div class="feature-icon"><i class="fa-solid fa-forward-step"></i></div>
+          <h3>Step-by-step</h3>
+          <p>Pause, rewind, and inspect every single frame of the algorithm's execution.</p>
         </div>
-
         <div class="feature-card glass-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-book-open"></i>
-          </div>
-          <h3>Contextual Info</h3>
-          <p>Every algorithm ships with Big-O complexity, space complexity, and a human-readable description — no tab-switching required.</p>
+          <div class="feature-icon"><i class="fa-solid fa-binoculars"></i></div>
+          <h3>Live Variables</h3>
+          <p>Watch variables and counters change in real time as the algorithm runs.</p>
         </div>
-
         <div class="feature-card glass-card">
-          <div class="feature-icon">
-            <i class="fa-solid fa-hand-pointer"></i>
-          </div>
-          <h3>Interactive Grids</h3>
-          <p>Click to place walls, set start and end nodes, and watch A* find the shortest path through your own maze.</p>
+          <div class="feature-icon"><i class="fa-solid fa-pencil"></i></div>
+          <h3>Custom Input</h3>
+          <p>Feed your own data into any algorithm and see exactly how it handles it.</p>
+        </div>
+        <div class="feature-card glass-card">
+          <div class="feature-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <h3>Edge Cases</h3>
+          <p>Test best-case, worst-case, nearly-sorted, and all-equal scenarios instantly.</p>
+        </div>
+        <div class="feature-card glass-card">
+          <div class="feature-icon"><i class="fa-solid fa-clock"></i></div>
+          <h3>Complexity Info</h3>
+          <p>Big-O time and space complexity shown for every algorithm — always visible.</p>
         </div>
       </div>
     </section>
 
-    <!-- ===== ALGORITHMS SHOWCASE ===== -->
-    <section class="algorithms" id="algorithms">
+    <!-- ═══════════ ALGORITHM SHOWCASE ═══════════ -->
+    <section class="algorithms-showcase" id="algorithms">
       <div class="section-header">
         <span class="section-tag">What's Inside</span>
-        <h2>Four Algorithms. <span class="gradient-text">One Platform.</span></h2>
+        <h2>26 Algorithms. <span class="gradient-text">One Platform.</span></h2>
+        <p>From classic sorting to machine learning — all visualized.</p>
       </div>
 
-      <div class="algo-cards">
-        <a href="visualizer.html?algo=bubble-sort" class="algo-card glass-card">
+      <div class="algo-cards-grid">
+
+        <a href="workspace.html?algo=binary-search" class="algo-card glass-card">
           <div class="algo-card-header">
-            <span class="algo-category ds">Data Structure</span>
-            <i class="fa-solid fa-arrow-up-wide-short"></i>
+            <span class="algo-category searching">Searching</span>
+            <i class="fa-solid fa-divide"></i>
           </div>
-          <h3>Bubble Sort</h3>
+          <h3>Binary Search</h3>
           <div class="algo-complexity">
-            <span class="complexity-badge">O(n²)</span>
+            <span class="complexity-badge">O(log n)</span>
             <span class="complexity-label">Time</span>
             <span class="complexity-badge">O(1)</span>
             <span class="complexity-label">Space</span>
           </div>
-          <p>The classic comparison sort. Watch adjacent elements bubble to their rightful position.</p>
-          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+          <p class="algo-desc">Watch left, mid, and right pointers navigate a sorted array with animated memory blocks.
+          </p>
+          <span class="algo-launch">Launch Visualizer <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
-        <a href="visualizer.html?algo=merge-sort" class="algo-card glass-card">
+        <a href="workspace.html?algo=merge-sort" class="algo-card glass-card">
           <div class="algo-card-header">
-            <span class="algo-category ds">Data Structure</span>
+            <span class="algo-category sorting">Sorting</span>
             <i class="fa-solid fa-code-merge"></i>
           </div>
           <h3>Merge Sort</h3>
@@ -193,13 +210,13 @@
             <span class="complexity-badge">O(n)</span>
             <span class="complexity-label">Space</span>
           </div>
-          <p>Divide and conquer. See how splitting and merging produces a perfectly sorted array.</p>
-          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+          <p class="algo-desc">Divide and conquer in action. Watch bars split and merge into perfect sorted order.</p>
+          <span class="algo-launch">Launch Visualizer <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
-        <a href="visualizer.html?algo=astar" class="algo-card glass-card">
+        <a href="workspace.html?algo=astar" class="algo-card glass-card">
           <div class="algo-card-header">
-            <span class="algo-category ai">AI Algorithm</span>
+            <span class="algo-category graph">Graph</span>
             <i class="fa-solid fa-route"></i>
           </div>
           <h3>A* Pathfinding</h3>
@@ -209,13 +226,13 @@
             <span class="complexity-badge">O(V)</span>
             <span class="complexity-label">Space</span>
           </div>
-          <p>The gold standard of pathfinding. Draw walls, set goals, watch heuristic-guided search.</p>
-          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+          <p class="algo-desc">Draw walls, set goals, and watch heuristic-guided search find the optimal path.</p>
+          <span class="algo-launch">Launch Visualizer <i class="fa-solid fa-arrow-right"></i></span>
         </a>
 
-        <a href="visualizer.html?algo=kmeans" class="algo-card glass-card">
+        <a href="workspace.html?algo=kmeans" class="algo-card glass-card">
           <div class="algo-card-header">
-            <span class="algo-category ai">AI Algorithm</span>
+            <span class="algo-category ml">Machine Learning</span>
             <i class="fa-solid fa-circle-nodes"></i>
           </div>
           <h3>K-Means Clustering</h3>
@@ -225,38 +242,161 @@
             <span class="complexity-badge">O(n+k)</span>
             <span class="complexity-label">Space</span>
           </div>
-          <p>Unsupervised learning, visualized. Watch data points self-organize around shifting centroids.</p>
-          <span class="algo-link">Visualize <i class="fa-solid fa-arrow-right"></i></span>
+          <p class="algo-desc">Watch data points self-organize around shifting centroids in real time.</p>
+          <span class="algo-launch">Launch Visualizer <i class="fa-solid fa-arrow-right"></i></span>
         </a>
+
+        <a href="workspace.html?algo=bst" class="algo-card glass-card">
+          <div class="algo-card-header">
+            <span class="algo-category trees">Trees</span>
+            <i class="fa-solid fa-diagram-project"></i>
+          </div>
+          <h3>Binary Search Tree</h3>
+          <div class="algo-complexity">
+            <span class="complexity-badge">O(log n)</span>
+            <span class="complexity-label">Avg</span>
+            <span class="complexity-badge">O(n)</span>
+            <span class="complexity-label">Space</span>
+          </div>
+          <p class="algo-desc">Insert, search, and delete nodes while watching the tree restructure visually.</p>
+          <span class="algo-launch">Launch Visualizer <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="catalog.html" class="algo-card glass-card"
+          style="justify-content:center; align-items:center; text-align:center; gap: var(--space-4);">
+          <i class="fa-solid fa-compass" style="font-size:2.5rem; color: var(--accent-blue);"></i>
+          <h3 style="color: var(--accent-blue);">+22 More Algorithms</h3>
+          <p class="algo-desc">Explore the full library with filters by category and difficulty.</p>
+          <span class="algo-launch" style="justify-content:center;">Browse Library <i
+              class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
       </div>
     </section>
 
-    <!-- ===== CTA ===== -->
+    <!-- ═══════════ CTA ═══════════ -->
     <section class="cta-section">
       <div class="cta-glow" aria-hidden="true"></div>
       <div class="cta-content">
         <h2>Ready to <span class="gradient-text">See the Code Think</span>?</h2>
-        <p>Jump into the interactive visualizer and start learning by watching.</p>
-        <a href="visualizer.html?type=ds" class="btn btn-primary btn-lg">
-          Launch Visualizer <i class="fa-solid fa-rocket"></i>
+        <p>Explore 29 algorithms across 8 categories — all with live counters, memory views, and step-by-step
+          explanations.</p>
+        <a href="catalog.html" class="btn btn-primary btn-lg">
+          Browse the Algorithm Library <i class="fa-solid fa-compass"></i>
         </a>
       </div>
     </section>
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-logo">
-        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
-      </div>
-      <p class="footer-tagline">Your Smart Guide from Confusion to Career</p>
-      <p class="footer-credit">Built with <i class="fa-solid fa-heart" style="color: var(--accent-purple)"></i> for ITI · Vanilla JS · No Frameworks</p>
+      <span class="footer-logo"><span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span></span>
+      <span class="footer-copy">© 2025 Lernexa · Built for learners.</span>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Library</a>
+      </nav>
     </div>
   </footer>
 
   <!-- JS -->
-  <script src="js/main.js"></script>
+  <script src="js/core/utils.js"></script>
+
+  <!-- Hero canvas animated background -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('heroBg');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var hero = document.getElementById('hero');
+
+      function resize() {
+        canvas.width  = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      var COLORS = [
+        'rgba(0,240,255,0.6)',
+        'rgba(176,38,255,0.5)',
+        'rgba(121,192,255,0.5)'
+      ];
+      var dots = [];
+      for (var i = 0; i < 80; i++) {
+        dots.push({
+          x:  Math.random() * canvas.width,
+          y:  Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r:  Math.random() * 1.5 + 0.5,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)]
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        /* Move dots */
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          d.x += d.vx;
+          d.y += d.vy;
+          if (d.x < 0 || d.x > canvas.width)  d.vx *= -1;
+          if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
+        }
+        /* Draw lines */
+        for (var i = 0; i < dots.length; i++) {
+          for (var j = i + 1; j < dots.length; j++) {
+            var dx = dots[i].x - dots[j].x;
+            var dy = dots[i].y - dots[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              ctx.beginPath();
+              ctx.moveTo(dots[i].x, dots[i].y);
+              ctx.lineTo(dots[j].x, dots[j].y);
+              ctx.strokeStyle = 'rgba(0,240,255,' + (0.12 * (1 - dist / 120)).toFixed(3) + ')';
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+        /* Draw dots */
+        for (var i = 0; i < dots.length; i++) {
+          ctx.beginPath();
+          ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
+          ctx.fillStyle = dots[i].color;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+
+  <!-- Scroll reveal -->
+  <script>
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      var targets = document.querySelectorAll(
+        '.feature-card, .algo-card, .section-header, .cta-content, .stat-item'
+      );
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeUp 0.6s ease both';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      targets.forEach(function (el) {
+        el.style.opacity = '0';
+        observer.observe(el);
+      });
+    })();
+  </script>
+
 </body>
+
 </html>
