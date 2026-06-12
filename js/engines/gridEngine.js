@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — gridEngine.js
+   Lernexa — gridEngine.js
    Renders interactive grid for pathfinding & maze algorithms.
    ════════════════════════════════════════════════════════════ */
 

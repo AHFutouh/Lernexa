@@ -1,0 +1,8 @@
+{
+  "bubble-sort":    { "comparisons": 357, "array_accesses": 714, "swaps": 188, "passes": 17 },
+  "selection-sort": { "comparisons": 435, "swaps": 26 },
+  "insertion-sort": { "comparisons": 214, "shifts": 188 },
+  "merge-sort":     { "merges": 29, "comparisons": 118, "array_writes": 148 },
+  "quick-sort":     { "partitions": 20, "comparisons": 122, "swaps": 84 },
+  "heap-sort":      { "comparisons": 203, "swaps": 122 }
+}

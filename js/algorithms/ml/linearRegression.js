@@ -24,15 +24,21 @@ async function runLinearRegression(opts) {
     return !control.isAborted;
   }
 
-  /* ── Default dataset: y ≈ 2x + 0.1 ── */
+  /* ── Fit the scatter that's actually on screen ──
+       The canvas engine generates a noisy dataset (true line + Gaussian
+       noise) in _generatePoints; fit that so the cloud you see is the cloud
+       being fitted. Falls back to a small synthetic set if none exists. */
   var defaultPoints = [
     {x:1,  y:2.1},  {x:2,  y:3.9},  {x:3,  y:6.2},  {x:4,  y:7.8},
     {x:5,  y:10.1}, {x:6,  y:11.9}, {x:7,  y:14.2}, {x:8,  y:15.8},
     {x:9,  y:18.1}, {x:10, y:20.0}
   ];
 
-  /* Use custom points if provided, otherwise default */
-  var dataPoints = (opts.customInput && opts.customInput.points) || defaultPoints;
+  var enginePts = (engine.getPoints && engine.getPoints()) || [];
+  var dataPoints = (opts.customInput && opts.customInput.points)
+    || (enginePts.length >= 2
+          ? enginePts.map(function (p) { return { x: p.x, y: p.y }; })
+          : defaultPoints);
 
   /* Pass the dataset to the engine — sets up coordinate plane */
   engine.initRegression(dataPoints, { xLabel: 'x', yLabel: 'y' });

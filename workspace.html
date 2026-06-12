@@ -27,7 +27,8 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="catalog.html" class="active">Library</a></li>
+        <li><a href="catalog.html">Library</a></li>
+        <li><a href="guide.html">Guide</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
@@ -36,6 +37,7 @@
     <div class="nav-mobile-menu" id="navMobileMenu">
       <a href="index.html">Home</a>
       <a href="catalog.html">Algorithm Library</a>
+      <a href="guide.html">Guide</a>
     </div>
   </nav>
 
@@ -71,6 +73,9 @@
   <!-- ═══════════ WORKSPACE BODY ═══════════ -->
   <div class="ws-body" id="wsBody">
 
+    <!-- Mobile drawer backdrop -->
+    <div class="ws-drawer-backdrop" id="wsDrawerBackdrop" aria-hidden="true"></div>
+
     <!-- ─── LEFT SIDEBAR ─── -->
     <aside class="ws-sidebar" id="wsSidebar">
       <div class="sidebar-header">
@@ -82,6 +87,11 @@
       <div class="sidebar-algo-list" id="sidebarList">
         <!-- Injected by workspace.js -->
       </div>
+      <a class="sidebar-source-link" href="https://github.com/AHFutouh/Lernexa"
+         target="_blank" rel="noopener" title="View source on GitHub">
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <span class="sidebar-source-text">Source Code</span>
+      </a>
     </aside>
 
     <!-- ─── MAIN STAGE ─── -->
@@ -89,6 +99,9 @@
 
       <!-- Algo header bar -->
       <div class="ws-algo-header">
+        <button class="ws-sidebar-open" id="wsSidebarOpen" aria-label="Open algorithm list" title="Algorithms">
+          <i class="fa-solid fa-list" aria-hidden="true"></i>
+        </button>
         <a href="catalog.html" class="ws-back-btn" title="Back to library">
           <i class="fa-solid fa-chevron-left"></i>
         </a>
@@ -119,11 +132,11 @@
               <i class="fa-solid fa-rotate-left"></i> Reset
             </button>
             <div class="ctrl-divider"></div>
-            <button class="ctrl-btn step-back" id="btnStepBack" title="Step Back (←)" disabled>
-              <i class="fa-solid fa-backward-step"></i>
+            <button class="ctrl-btn step-back" id="btnStepBack" title="Step Back (←)" aria-label="Step back" disabled>
+              <i class="fa-solid fa-backward-step" aria-hidden="true"></i>
             </button>
-            <button class="ctrl-btn step-fwd" id="btnStepFwd" title="Step Forward (→)" disabled>
-              <i class="fa-solid fa-forward-step"></i>
+            <button class="ctrl-btn step-fwd" id="btnStepFwd" title="Step Forward (→)" aria-label="Step forward" disabled>
+              <i class="fa-solid fa-forward-step" aria-hidden="true"></i>
             </button>
           </div>
 
@@ -185,15 +198,17 @@
           <div class="ctrl-group" id="ctrlPathExtra" style="display:none;">
             <button class="ctrl-btn" id="btnGenMaze"><i class="fa-solid fa-border-all"></i> Maze</button>
             <button class="ctrl-btn" id="btnClearGrid"><i class="fa-solid fa-trash"></i> Clear</button>
+            <button class="ctrl-btn" id="btnGridBFS"><i class="fa-solid fa-wave-square"></i> BFS</button>
+            <button class="ctrl-btn" id="btnGridAstar"><i class="fa-solid fa-route"></i> A*</button>
           </div>
 
           <!-- A* Heuristic -->
           <div class="ctrl-group" id="ctrlHeuristicGroup" style="display:none;">
             <span class="ctrl-group-label">Heuristic</span>
             <select class="ctrl-select" id="heuristicSelect">
-              <option value="manhattan">Manhattan</option>
-              <option value="euclidean">Euclidean</option>
-              <option value="diagonal">Diagonal</option>
+              <option value="euclidean" selected>Euclidean (optimal)</option>
+              <option value="diagonal">Diagonal (optimal)</option>
+              <option value="manhattan">Manhattan (exploratory)</option>
             </select>
           </div>
 
@@ -379,6 +394,8 @@
   <script src="js/algorithms/graph/ids.js"></script>
   <script src="js/algorithms/graph/greedy.js"></script>
   <script src="js/algorithms/graph/maze.js"></script>
+  <script src="js/algorithms/grid/gridBFS.js"></script>
+  <script src="js/algorithms/grid/gridAstar.js"></script>
   <script src="js/algorithms/trees/bst.js"></script>
   <script src="js/algorithms/trees/traversals.js"></script>
   <script src="js/algorithms/dp/knapsack.js"></script>

@@ -88,6 +88,7 @@ async function runLinkedList(opts) {
       onLog('info', '<strong>SEARCH</strong> for <span class="log-val">' + val + '</span> — linear scan O(n), found at index ' + searchTargetIdx + '.');
     }
 
+    onVar('size', engine.getAll ? engine.getAll().length : 0);
     await sleep(getDelay());
   }
 

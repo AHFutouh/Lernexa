@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Binary Search
+   Lernexa — Binary Search
    Pure algorithm engine. Zero DOM access.
    Communicates via opts.onStep callback pattern.
    ════════════════════════════════════════════════════════════ */

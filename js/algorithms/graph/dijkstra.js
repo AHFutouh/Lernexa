@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Dijkstra's Algorithm
+   Lernexa — Dijkstra's Algorithm
    Engine: networkEngine
    Finds the shortest weighted path between two nodes.
    ════════════════════════════════════════════════════════════ */

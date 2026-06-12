@@ -58,6 +58,7 @@ async function runCoinChange(opts) {
   /* ── Step 3: fill DP array ──────────────────────────────── */
   for (var ci = 0; ci < coins.length; ci++) {
     var coin = coins[ci];
+    var coinImprovedLogged = false;
 
     /* Activate this coin */
     if (engine && typeof engine.activateCoin === 'function') {
@@ -89,6 +90,15 @@ async function runCoinChange(opts) {
 
       /* DP recurrence */
       if (dp[a - coin] + 1 < dp[a]) {
+        /* Decision: using this coin (1 + dp[a-coin]) beats the best so far.
+           Log the first amount where coin X first pays off (throttled). */
+        if (!coinImprovedLogged) {
+          coinImprovedLogged = true;
+          onLog('info',
+            'Coin <span class="log-val">' + coin + '</span> first improves amount ' +
+            '<span class="log-val">' + a + '</span>: 1 + dp[' + (a - coin) + '] = ' +
+            '<span class="log-val">' + (dp[a - coin] + 1) + '</span> coins.');
+        }
         dp[a]   = dp[a - coin] + 1;
         from[a] = coin;
         onVar('last_coin', coin);

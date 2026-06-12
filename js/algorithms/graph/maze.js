@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Maze Generation (Recursive Backtracker DFS)
+   Lernexa — Maze Generation (Recursive Backtracker DFS)
    Engine: gridEngine
    ════════════════════════════════════════════════════════════ */
 

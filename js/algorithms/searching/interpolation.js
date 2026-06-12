@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Interpolation Search
+   Lernexa — Interpolation Search
    ════════════════════════════════════════════════════════════ */
 
 'use strict';

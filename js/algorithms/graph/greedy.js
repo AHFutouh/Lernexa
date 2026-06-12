@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Greedy Best-First Search
+   Lernexa — Greedy Best-First Search
    Engine: networkEngine
    Expands the node with the lowest heuristic h(n) —
    Euclidean pixel distance from the node to the goal.

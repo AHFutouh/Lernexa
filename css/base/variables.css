@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Design Tokens / CSS Custom Properties
+   Lernexa — Design Tokens / CSS Custom Properties
    Single source of truth for all design decisions.
    ════════════════════════════════════════════════════════════ */
 
@@ -15,7 +15,7 @@
 
   --text-primary:      #E6EDF3;
   --text-secondary:    #8B949E;
-  --text-muted:        #484F58;
+  --text-muted:        #6E7681;
   --text-inverse:      #0D1117;
 
   --accent-blue:       #00F0FF;

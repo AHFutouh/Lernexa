@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Fractional Knapsack (Greedy)
+   Lernexa — Fractional Knapsack (Greedy)
    "السائل الذهبي" — Liquid Gold
    Premium visualization: glass vials + sort animation + pour + laser cut
    ════════════════════════════════════════════════════════════ */

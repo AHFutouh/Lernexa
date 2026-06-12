@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — fetcher.js
+   Lernexa — fetcher.js
    Loads algorithms.json via XMLHttpRequest (no fetch API).
    Provides a simple callback-based API consumed by all pages.
    ════════════════════════════════════════════════════════════ */

@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Breadth-First Search (BFS)
+   Lernexa — Breadth-First Search (BFS)
    Engine: networkEngine
    Guarantees shortest path (by hop count) in an unweighted graph.
    ════════════════════════════════════════════════════════════ */

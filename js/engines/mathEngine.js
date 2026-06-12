@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — mathEngine.js  (Premium Visual Edition)
+   Lernexa — mathEngine.js  (Premium Visual Edition)
    Rich visual engine for Math algorithms (DOM/CSS — no Canvas).
 
    Rendering modes (detected from algo.id):
@@ -87,6 +87,16 @@ var MathEngine = (function () {
         'font-size:0.6rem;color:#484F58;',
         'top:2px;right:3px;',
       '}',
+      /* Multiple being struck out right now — flashes in the prime's colour
+         before settling to composite (B-G3, makes the sweep visible). */
+      '.sieve-cell.sweeping{',
+        'background:color-mix(in srgb,var(--sweep-color,#F0883E) 35%,transparent);',
+        'border-color:var(--sweep-color,#F0883E);color:var(--sweep-color,#F0883E);',
+        'box-shadow:0 0 10px color-mix(in srgb,var(--sweep-color,#F0883E) 55%,transparent);',
+        'transform:scale(1.08);z-index:2;',
+      '}',
+      /* The prime doing the sweeping pulses while its multiples fall. */
+      '.sieve-cell.sweep-source{animation:me-pulse 0.7s ease infinite;}',
       '@keyframes me-fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}',
       '@keyframes me-pulse{0%,100%{opacity:1}50%{opacity:0.55}}',
       '@keyframes me-packetFly{to{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0.7)}}'
@@ -511,14 +521,31 @@ var MathEngine = (function () {
 
       if (keys.length === 0) { resolve(); return; }
 
+      /* Pulse the prime cell while it sweeps so the cause is visible. */
+      var src = cells[p];
+      if (src) src.classList.add('sweep-source');
+
       var idx = 0;
       function next() {
-        if (idx >= keys.length) { resolve(); return; }
+        if (idx >= keys.length) {
+          if (src) src.classList.remove('sweep-source');
+          resolve();
+          return;
+        }
         var num  = keys[idx++];
         var cell = cells[num];
         if (cell) {
           marked[num] = true;
-          cell.classList.add('composite');
+          /* Flash the multiple in the prime's colour, then settle it to
+             composite — so you see WHICH cell is being struck and by whom. */
+          cell.style.setProperty('--sweep-color', color || '#F0883E');
+          cell.classList.add('sweeping');
+          (function (c) {
+            setTimeout(function () {
+              c.classList.remove('sweeping');
+              c.classList.add('composite');
+            }, Math.min((delayMs || 60) * 1.6, 200));
+          })(cell);
         }
         setTimeout(next, delayMs || 60);
       }

@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Sieve of Eratosthenes
+   Lernexa — Sieve of Eratosthenes
    Engine: MathEngine  (CSS-grid number cells with neon glow)
 
    Default N = 100
@@ -110,8 +110,19 @@ async function runSieve(opts) {
     if (await _check()) return false;
   }
 
-  /* ── Phase 2: remaining primes > sqrt(N) ────────────────── */
+  /* ── Phase 2: every still-unmarked number above √N is prime ──
+     The key insight, made visible: once we've swept all primes up to
+     √N, nothing left can have a smaller factor — so every remaining
+     unmarked cell lights up as a prime. Animated (capped) so the reveal
+     reads clearly instead of appearing all at once. */
+  onLog('compare',
+    'Past <span class="log-val">√' + N + ' ≈ ' + sqrtN + '</span> — no new multiples left to strike. ' +
+    'Every number still unmarked <strong>must</strong> be prime.');
+  await sleep(getDelay());
+  if (await _check()) return false;
+
   for (var q = sqrtN + 1; q <= N; q++) {
+    if (await _check()) return false;
     if (isComposite[q]) continue;
     primes.push(q);
     var color2 = PRIME_COLORS[colorIdx % PRIME_COLORS.length];
@@ -120,6 +131,10 @@ async function runSieve(opts) {
       engine.markPrime(q, color2);
     }
     onCnt('primes_found');
+    onVar('current_prime',  q);
+    onVar('primes_found',   primes.length);
+    /* Brief per-cell pacing, capped so large N stays snappy */
+    await sleep(Math.min(getDelay() * 0.2, 60));
   }
 
   onVar('primes_found', primes.length);

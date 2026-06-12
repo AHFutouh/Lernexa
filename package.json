@@ -1,0 +1,15 @@
+{
+  "name": "lernexa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lernexa — interactive algorithm visualizer. The app itself is zero-dependency, static HTML/CSS/JS; this manifest exists only for dev tooling (tests).",
+  "scripts": {
+    "test": "node tests/logic.test.js",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  },
+  "license": "MIT"
+}

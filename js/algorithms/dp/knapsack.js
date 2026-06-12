@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — 0/1 Knapsack (Dynamic Programming)
+   Lernexa — 0/1 Knapsack (Dynamic Programming)
    "معضلة اللص" — The Thief's Dilemma
    Premium visualization: gem cards + holographic arrows + backtrack beam
    ════════════════════════════════════════════════════════════ */
@@ -88,6 +88,7 @@ async function runKnapsack(opts) {
       ' — weight: <span class="log-val">' + wt + '</span>' +
       ', value: <span class="log-val">' + item.value + '</span>');
 
+    var itemTakeLogged = false;
     for (var w = 0; w <= W; w++) {
       while (control.isPaused && !control.isAborted) { await sleep(60); }
       if (control.isAborted) return false;
@@ -118,7 +119,19 @@ async function runKnapsack(opts) {
 
       onVar('leave_value', leaveVal);
       onVar('take_value',  takeVal >= 0 ? takeVal : 'n/a');
-      if (takeVal > leaveVal) onCnt('updates');
+      if (takeVal > leaveVal) {
+        onCnt('updates');
+        /* Teach the take-vs-leave decision once per item: the capacity at
+           which including this item first beats leaving it out (B-U3). */
+        if (!itemTakeLogged) {
+          itemTakeLogged = true;
+          onLog('info',
+            'Item <span class="log-val">' + i + '</span> starts paying off at capacity ' +
+            '<span class="log-val">' + w + '</span> — take ' +
+            '<span class="log-val">' + takeVal + '</span> &gt; leave ' +
+            '<span class="log-val">' + leaveVal + '</span>.');
+        }
+      }
 
       /* Set final cell state */
       if (engine && typeof engine.setCellValue === 'function') {

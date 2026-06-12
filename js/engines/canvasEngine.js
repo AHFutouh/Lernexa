@@ -118,20 +118,34 @@ var CanvasEngine = (function () {
     var kSlider = byId('kSlider');
     var k = kSlider ? parseInt(kSlider.value) : 3;
 
-    /* ── Linear regression: use default data-space points ── */
+    /* ── Linear regression: generate genuinely scattered data ──
+       Real (noisy) data drawn from a hidden line y = m·x + b + Gaussian
+       noise, spread across the x-range. This gives gradient descent an
+       actual cloud to fit — the line visibly converges and the residual
+       error bars mean something (vs. the old near-collinear points where
+       the "fit" was trivial). Reset regenerates a fresh dataset. */
     if (algo && algo.id === 'linear-regression') {
-      /* Default dataset: y ≈ 2x + 0.1, stored as raw data coords */
-      var defaultPts = [
-        {x:1,  y:2.1},  {x:2,  y:3.9},  {x:3,  y:6.2},  {x:4,  y:7.8},
-        {x:5,  y:10.1}, {x:6,  y:11.9}, {x:7,  y:14.2}, {x:8,  y:15.8},
-        {x:9,  y:18.1}, {x:10, y:20.0}
-      ];
-      _regrPoints = defaultPts;
-      _regrXMax   = 10;
-      _regrYMax   = 22;
-      /* _points stores data-space coords; drawing converts to canvas via _regrToCanvas */
-      for (var li = 0; li < defaultPts.length; li++) {
-        _points.push({ x: defaultPts[li].x, y: defaultPts[li].y, cluster: 0 });
+      var trueM = 1.2 + Math.random() * 1.6;   /* slope  ≈ 1.2 .. 2.8 */
+      var trueB = Math.random() * 3;           /* intercept ≈ 0 .. 3  */
+      var N     = 18;
+      var pts   = [];
+      var maxY  = 0;
+      for (var li = 0; li < N; li++) {
+        var px = 0.5 + Math.random() * 9.5;            /* x ∈ 0.5 .. 10 */
+        var py = trueM * px + trueB + _gaussian() * 1.6; /* + noise (σ≈1.6) */
+        if (py < 0.2) py = 0.2;
+        px = Math.round(px * 100) / 100;
+        py = Math.round(py * 100) / 100;
+        if (py > maxY) maxY = py;
+        pts.push({ x: px, y: py, cluster: 0 });
+      }
+      pts.sort(function (a, b) { return a.x - b.x; });
+      _regrPoints = pts;
+      _regrXMax   = 11;
+      _regrYMax   = Math.max(12, Math.ceil(maxY * 1.15));
+      /* _points stores data-space coords; drawing converts via _regrToCanvas */
+      for (var pi = 0; pi < pts.length; pi++) {
+        _points.push({ x: pts[pi].x, y: pts[pi].y, cluster: 0 });
       }
       return;
     }
@@ -747,6 +761,13 @@ var CanvasEngine = (function () {
   /* ════════════════════════════════════════════════════════════
      HELPERS
   ════════════════════════════════════════════════════════════ */
+  /* Standard-normal sample via the Box–Muller transform. */
+  function _gaussian() {
+    var u = 1 - Math.random();   /* (0,1] to avoid log(0) */
+    var v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
   function _hexToRgba(hex, alpha) {
     var r = parseInt(hex.slice(1, 3), 16);
     var g = parseInt(hex.slice(3, 5), 16);

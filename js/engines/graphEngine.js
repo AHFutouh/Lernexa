@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — graphEngine.js
+   Lernexa — graphEngine.js
    SVG-based engine for Graph & Tree algorithms.
    (BFS, DFS, BST, Tree Traversals)
    ════════════════════════════════════════════════════════════ */

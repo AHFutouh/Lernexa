@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Binary Search Tree (BST) Operations
+   Lernexa — Binary Search Tree (BST) Operations
    Engine: graphEngine  (SVG tree)
    ════════════════════════════════════════════════════════════ */
 

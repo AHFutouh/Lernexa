@@ -25,9 +25,15 @@ var NetworkEngine = (function() {
   var _depth      = 4;
   var _branching  = 2;
   var _graphType  = 'tree';  /* 'tree' | 'graph' */
+  var _cfgCollapsed = false;  /* floating settings panel collapsed state (session) */
 
   /* ── Constants ── */
   var NODE_RADIUS = 22;
+  /* Edge weight = ceil(pixel distance × WEIGHT_SCALE). Tying weight to the
+     true geometric distance is what makes A*'s straight-line (Euclidean)
+     heuristic admissible — h can never exceed the real remaining cost, so
+     A* is provably optimal and matches Dijkstra on the same instance. */
+  var WEIGHT_SCALE = 0.1;
   var COLORS = {
     default:  { fill: '#1C2330',                stroke: '#484F58', text: '#8B949E' },
     start:    { fill: 'rgba(57,211,83,0.25)',    stroke: '#39D353', text: '#39D353' },
@@ -48,6 +54,17 @@ var NetworkEngine = (function() {
       return letters[Math.floor(id / 26) - 1] + letters[id % 26];
     }
     return String(id);
+  }
+
+  /* Edge weight derived from the geometric distance between two placed
+     nodes. Rounded UP so weight ≥ distance×scale for every edge, which
+     guarantees the Euclidean heuristic stays a lower bound (admissible)
+     even after integer rounding. */
+  function _edgeWeight(idA, idB) {
+    var a = _nodes[idA], b = _nodes[idB];
+    if (!a || !b) return 1;
+    var dx = a.x - b.x, dy = a.y - b.y;
+    return Math.max(1, Math.ceil(Math.sqrt(dx * dx + dy * dy) * WEIGHT_SCALE));
   }
 
   /* ════════════════════════════════════════════════════════════
@@ -83,7 +100,7 @@ var NetworkEngine = (function() {
         var segW = (xMax - xMin) / b;
         for (var i = 0; i < b; i++) {
           var childId = place(myId, level + 1, xMin + i * segW, xMin + (i + 1) * segW);
-          var w = _isWeighted ? randomInt(1, 15) : 1;
+          var w = _isWeighted ? _edgeWeight(myId, childId) : 1;
           _edges.push({ from: myId, to: childId, weight: w, el: null, labelEl: null, state: 'default' });
         }
       }
@@ -113,7 +130,7 @@ var NetworkEngine = (function() {
         var nA = _nodes[a], nB = _nodes[b];
         if (nA.parent === b || nB.parent === a) continue;
         edgeSet.add(key);
-        var cw = _isWeighted ? randomInt(1, 15) : 1;
+        var cw = _isWeighted ? _edgeWeight(a, b) : 1;
         _edges.push({ from: a, to: b, weight: cw, el: null, labelEl: null, state: 'default' });
         added++;
       }
@@ -237,6 +254,14 @@ var NetworkEngine = (function() {
   function _renderConfigOverlay() {
     var overlay = createElement('div', 'net-config-overlay');
     overlay.innerHTML =
+      /* Header: title + collapse toggle */
+      '<div class="net-cfg-header">' +
+        '<span class="net-cfg-title"><i class="fa-solid fa-sliders"></i>' +
+          '<span class="net-cfg-title-text">Graph Settings</span></span>' +
+        '<button class="net-cfg-toggle" id="netCfgToggle" type="button" aria-label="Toggle settings panel">' +
+          '<i class="fa-solid fa-chevron-down"></i></button>' +
+      '</div>' +
+      '<div class="net-cfg-body">' +
       /* Row 1: Graph type */
       '<div class="net-cfg-row">' +
         '<span class="net-cfg-label">Layout</span>' +
@@ -280,9 +305,18 @@ var NetworkEngine = (function() {
         '<span class="net-node-badge start" id="netStartBadge">' + _nodeLabel(_startId !== null ? _startId : 0) + '</span>' +
         '<span class="net-cfg-label">End:</span>' +
         '<span class="net-node-badge end" id="netEndBadge">' + _nodeLabel(_endId !== null ? _endId : 0) + '</span>' +
-      '</div>';
+      '</div>' +
+      '</div>';  /* /net-cfg-body */
 
     _area.appendChild(overlay);
+
+    /* Apply persisted collapsed state + wire the collapse toggle */
+    if (_cfgCollapsed) overlay.classList.add('collapsed');
+    var cfgToggle = byId('netCfgToggle');
+    if (cfgToggle) cfgToggle.addEventListener('click', function() {
+      _cfgCollapsed = !_cfgCollapsed;
+      overlay.classList.toggle('collapsed', _cfgCollapsed);
+    });
 
     /* Wire config buttons */
     var cfgBtns = overlay.querySelectorAll('[data-cfg]');
@@ -531,6 +565,12 @@ var NetworkEngine = (function() {
     return _isWeighted;
   }
 
+  /* Scale factor relating pixel distance to edge weight. A* uses this so
+     its heuristic is on the same scale as g (the accumulated edge cost). */
+  function getWeightScale() {
+    return WEIGHT_SCALE;
+  }
+
   function getNodeLabel(id) {
     return _nodeLabel(id);
   }
@@ -554,6 +594,7 @@ var NetworkEngine = (function() {
     getNodes:        getNodes,
     getEdges:        getEdges,
     isWeighted:      isWeighted,
+    getWeightScale:  getWeightScale,
     getNodeLabel:    getNodeLabel,
     /* Compat shims so workspace.js engine-map doesn't break */
     buildDefaultBST:  function() {},

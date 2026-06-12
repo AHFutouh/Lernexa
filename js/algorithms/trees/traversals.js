@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Tree Traversals (In-order / Pre-order / Post-order / Level-order)
+   Lernexa — Tree Traversals (In-order / Pre-order / Post-order / Level-order)
    Engine: graphEngine
    ════════════════════════════════════════════════════════════ */
 

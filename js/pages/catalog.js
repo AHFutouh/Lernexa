@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — catalog.js
+   Lernexa — catalog.js
    Owns the catalog page: renders cards, powers filters & search.
    ════════════════════════════════════════════════════════════ */
 

@@ -27,36 +27,42 @@ async function runAstar(opts) {
 
   var hLabel = (opts.heuristic || 'euclidean').toLowerCase();
 
-  /* Functional heuristics computed from the nodes' pixel coordinates, so
-     the selector actually changes A*'s behaviour:
-       • Euclidean  → straight-line distance √(dx²+dy²)
-       • Manhattan  → |dx| + |dy|
-       • Diagonal   → Chebyshev distance max(|dx|, |dy|)
-     All are admissible on this layout (never overestimate the weighted
-     cost), so A* stays optimal while expanding a different frontier. */
+  /* Edge weights are now ceil(pixelDistance × scale), so the heuristic must
+     use the SAME scale to live in g's units. Admissibility (per heuristic):
+       • Euclidean  √(dx²+dy²)  = the exact straight-line lower bound on the
+                                  remaining cost (triangle inequality) ⇒ admissible ⇒ optimal.
+       • Diagonal   max(|dx|,|dy|) ≤ Euclidean ⇒ also a lower bound ⇒ admissible ⇒ optimal.
+       • Manhattan  |dx|+|dy| ≥ Euclidean ⇒ can exceed the true remaining
+                                  cost ⇒ NOT admissible ⇒ A* may be non-optimal. */
+  var scale = (engine.getWeightScale ? engine.getWeightScale() : 0.1);
   function heuristic(aId, bId) {
     var a = engine.getNode ? engine.getNode(aId) : null;
     var b = engine.getNode ? engine.getNode(bId) : null;
-    if (!a || !b) return engine.getDistance(aId, bId);
+    if (!a || !b) return engine.getDistance(aId, bId) * scale;
     var dx = Math.abs(a.x - b.x);
     var dy = Math.abs(a.y - b.y);
     var raw;
     if (hLabel === 'manhattan')      raw = dx + dy;
     else if (hLabel === 'diagonal')  raw = Math.max(dx, dy);
     else                             raw = Math.sqrt(dx * dx + dy * dy);
-    /* Scale pixel distance down toward edge-weight units so h stays
-       admissible relative to g (edge weights are 1–15). */
-    return raw * 0.05;
+    return raw * scale;
   }
 
-  var hDisplay = hLabel === 'manhattan' ? 'Manhattan' :
-                 hLabel === 'diagonal'  ? 'Diagonal (Chebyshev)' : 'Euclidean';
+  var hAdmissible = (hLabel !== 'manhattan');
+  var hDisplay = hLabel === 'manhattan'
+                   ? 'Manhattan (exploratory — not guaranteed optimal)'
+                   : hLabel === 'diagonal'
+                     ? 'Diagonal / Chebyshev (admissible ⇒ optimal)'
+                     : 'Euclidean (admissible ⇒ optimal)';
 
   onLog('info',
     'A* — Start: <span class="log-val">Node ' + startId + '</span> → ' +
     'Goal: <span class="log-val">Node ' + endId + '</span> | Heuristic: ' + hDisplay
   );
-  onLog('info', 'f(n) = g(n) + h(n) — g = edge-weight cost from start, h = Euclidean distance to goal.');
+  onLog('info', 'f(n) = g(n) + h(n) — g = edge-weight cost from start, h = scaled straight-line distance to goal.');
+  if (!hAdmissible) {
+    onLog('compare', 'Note: the Manhattan heuristic can overestimate remaining cost on this graph (|dx|+|dy| ≥ straight-line), so it is <strong>not admissible</strong> here — A* may return a non-optimal path. Use <strong>Euclidean</strong> for the guaranteed-optimal result.');
+  }
   onVar('start',     startId);
   onVar('goal',      endId);
   onVar('heuristic', hDisplay);

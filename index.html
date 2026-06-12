@@ -36,6 +36,7 @@
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="catalog.html">Library</a></li>
+        <li><a href="guide.html">Guide</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <i class="fa-solid fa-bars"></i>
@@ -44,6 +45,7 @@
     <div class="nav-mobile-menu" id="navMobileMenu">
       <a href="index.html">Home</a>
       <a href="catalog.html">Algorithm Library</a>
+      <a href="guide.html">Guide</a>
     </div>
   </nav>
 
@@ -59,7 +61,7 @@
       <div class="hero-content">
         <div class="hero-badge">
           <i class="fa-solid fa-bolt"></i>
-          <span>ITI Work-Based Project</span>
+          <span>See the steps — not just the start and the end</span>
         </div>
 
         <h1 class="hero-title">
@@ -71,7 +73,7 @@
           Lernexa transforms abstract algorithms and data structures into
           living, breathing visualizations — so you understand the <em>why</em>,
           not just the <em>how</em>.
-        </p>
+        </p>   
 
         <div class="hero-actions">
           <a href="#features" class="btn btn-primary btn-lg">
@@ -100,32 +102,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="hero-visual" aria-hidden="true">
-        <div class="code-window">
-          <div class="code-window-bar">
-            <span class="dot dot-red"></span>
-            <span class="dot dot-yellow"></span>
-            <span class="dot dot-green"></span>
-            <span class="code-window-title">binary_search.js</span>
-          </div>
-          <pre class="code-block"><code><span class="cm">// Watch every pointer move in real-time</span>
-<span class="kw">async function</span> <span class="fn">binarySearch</span>(arr, target) {
-  <span class="kw">let</span> left = <span class="num">0</span>, right = arr.length - <span class="num">1</span>;
-
-  <span class="kw">while</span> (left &lt;= right) {
-    <span class="kw">let</span> mid = Math.floor((left + right) / <span class="num">2</span>);
-    highlight(left, mid, right);  <span class="cm">// ✦ Live</span>
-
-    <span class="kw">if</span> (arr[mid] === target) <span class="kw">return</span> mid;
-    <span class="kw">if</span> (arr[mid] &lt; target)  left  = mid + <span class="num">1</span>;
-    <span class="kw">else</span>                    right = mid - <span class="num">1</span>;
-
-    <span class="kw">await</span> <span class="fn">sleep</span>(speed);  <span class="cm">// ✦ Yield to browser</span>
-  }
-  <span class="kw">return</span> -<span class="num">1</span>;  <span class="cm">// Not found</span>
-}</code></pre>
-        </div>
-      </div> -->
     </section>
 
 
@@ -140,7 +116,7 @@
       <div class="features-grid features-grid-6">
         <div class="feature-card glass-card">
           <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
-          <h3>29 Algorithms</h3>
+          <h3>36 Algorithms</h3>
           <p>From sorting to ML — fully interactive visualizations across 8 categories.</p>
         </div>
         <div class="feature-card glass-card">
@@ -175,7 +151,7 @@
     <section class="algorithms-showcase" id="algorithms">
       <div class="section-header">
         <span class="section-tag">What's Inside</span>
-        <h2>26 Algorithms. <span class="gradient-text">One Platform.</span></h2>
+        <h2>36 Algorithms. <span class="gradient-text">One Platform.</span></h2>
         <p>From classic sorting to machine learning — all visualized.</p>
       </div>
 
@@ -265,7 +241,7 @@
         <a href="catalog.html" class="algo-card glass-card"
           style="justify-content:center; align-items:center; text-align:center; gap: var(--space-4);">
           <i class="fa-solid fa-compass" style="font-size:2.5rem; color: var(--accent-blue);"></i>
-          <h3 style="color: var(--accent-blue);">+22 More Algorithms</h3>
+          <h3 style="color: var(--accent-blue);">+31 More Algorithms</h3>
           <p class="algo-desc">Explore the full library with filters by category and difficulty.</p>
           <span class="algo-launch" style="justify-content:center;">Browse Library <i
               class="fa-solid fa-arrow-right"></i></span>
@@ -274,12 +250,30 @@
       </div>
     </section>
 
+    <!-- ═══════════ ABOUT ═══════════ -->
+    <section class="about-section" id="about">
+      <div class="about-glow" aria-hidden="true"></div>
+      <div class="about-inner">
+        <span class="section-tag"><i class="fa-solid fa-graduation-cap"></i> About the project</span>
+        <h2>A student project, <span class="gradient-text">built to teach</span></h2>
+        <p class="about-lead">
+          Lernexa was built as an ITI (Information Technology Institute) Work-Based
+          Project — a zero-dependency, data-driven visualizer that turns 36 algorithms
+          across 8 categories into something you can watch, pause, and pick apart.
+        </p>
+        <div class="about-logos">
+          <img class="about-logo-img" src="assets/sphinx-logo.svg" alt="Sphinx" />
+          <img class="about-logo-img" src="assets/iti-logo.svg" alt="ITI" />
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════ CTA ═══════════ -->
     <section class="cta-section">
       <div class="cta-glow" aria-hidden="true"></div>
       <div class="cta-content">
         <h2>Ready to <span class="gradient-text">See the Code Think</span>?</h2>
-        <p>Explore 29 algorithms across 8 categories — all with live counters, memory views, and step-by-step
+        <p>Explore 36 algorithms across 8 categories — all with live counters, memory views, and step-by-step
           explanations.</p>
         <a href="catalog.html" class="btn btn-primary btn-lg">
           Browse the Algorithm Library <i class="fa-solid fa-compass"></i>
@@ -293,10 +287,11 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-logo"><span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span></span>
-      <span class="footer-copy">© 2025 Lernexa · Built for learners.</span>
+      <span class="footer-copy">© 2026 Lernexa · Built for learners.</span>
       <nav class="footer-nav">
-        <a href="index.html">Home</a>
-        <a href="catalog.html">Library</a>
+        <a href="https://github.com/AHFutouh/Lernexa" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Source Code
+        </a>
       </nav>
     </div>
   </footer>

@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Uniform Cost Search (UCS)
+   Lernexa — Uniform Cost Search (UCS)
    Engine: networkEngine
    Expands the node with lowest cumulative path cost g(n).
    Optimal on positive-weight graphs. Equivalent to Dijkstra

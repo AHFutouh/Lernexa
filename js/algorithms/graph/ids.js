@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Iterative Deepening DFS (IDS / IDDFS)
+   Lernexa — Iterative Deepening DFS (IDS / IDDFS)
    Engine: networkEngine
    Runs DLS repeatedly with depth limit 0, 1, 2, …, maxDepth.
    Memory-efficient like DFS; complete & optimal like BFS.

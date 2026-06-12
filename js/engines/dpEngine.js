@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — dpEngine.js
+   Lernexa — dpEngine.js
    Lightweight DOM/CSS engine for Dynamic Programming algorithms.
    Renders animated DP tables, item cards, coin tokens, and
    result banners inside the ws-canvas-area.
@@ -133,8 +133,13 @@ var DPEngine = (function () {
         'font-size:var(--text-xs);position:sticky;left:0;z-index:1;}',
 
       /* Cell states */
-      '.dp-table td.state-computing{background:rgba(240,136,62,0.20);',
-        'color:var(--accent-orange);box-shadow:inset 0 0 10px rgba(240,136,62,0.15);}',
+      /* Current cell: bright outer ring + glow so it reads as the cursor
+         moving across the table (B-U3). Injected here because this style
+         loads after workspace.css and would otherwise override it. */
+      '.dp-table td.state-computing{background:rgba(240,136,62,0.22);',
+        'color:var(--accent-orange);position:relative;z-index:2;',
+        'box-shadow:inset 0 0 10px rgba(240,136,62,0.15),',
+        '0 0 0 2px var(--accent-orange),0 0 12px rgba(240,136,62,0.5);}',
       '.dp-table td.state-optimal{background:rgba(57,211,83,0.15);color:var(--accent-green);',
         'box-shadow:inset 0 0 10px rgba(57,211,83,0.18);font-weight:var(--weight-semi);}',
       '.dp-table td.state-chosen{background:rgba(0,240,255,0.15);color:var(--accent-blue);',

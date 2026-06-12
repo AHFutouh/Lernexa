@@ -18,11 +18,12 @@ var WS = {
   isPaused:  false,
   control:   { isPaused: false, isAborted: false },
   counters:  {},      /* { key: number } — live counters */
-  heuristic: 'manhattan', /* for A* */
+  heuristic: 'euclidean', /* for A* — Euclidean is admissible ⇒ optimal */
   runToken:  0,       /* increments on every fresh run — guards Reset→Play race */
+  vars:      {},      /* { name: value } — live variable-watcher mirror (for rewind) */
 
   /* ── Step history ──────────────────────────────────────── */
-  steps:     [],      /* array of engine state snapshots */
+  steps:     [],      /* array of { engine, counters, vars } snapshots */
   stepIndex: -1,      /* pointer into steps[] */
   MAX_STEPS: 200      /* bounded snapshot buffer */
 };
@@ -42,7 +43,8 @@ var WorkspaceController = (function() {
     WS.speed = _spd ? (parseInt(_spd.value) || 4) : 4;
     WS.isRunning = false;
     WS.isPaused  = false;
-    WS.heuristic = 'manhattan';
+    WS.heuristic = 'euclidean';
+    WS.vars      = {};
     WS.control   = { isPaused: false, isAborted: false };
 
     _setupTitle(algo);
@@ -136,17 +138,39 @@ var WorkspaceController = (function() {
       }
     });
 
-    /* Sidebar toggle */
+    /* Sidebar toggle — mobile-aware. On phones (≤900px) the sidebar is an
+       off-canvas drawer: #wsSidebarOpen opens it, the in-sidebar toggle and
+       the backdrop close it. On desktop it collapses in place as before. */
     var toggleBtn = byId('sidebarToggle');
     var sidebar   = byId('wsSidebar');
+    var openBtn   = byId('wsSidebarOpen');
+    var backdrop  = byId('wsDrawerBackdrop');
+
+    function _isMobile() { return window.matchMedia('(max-width: 900px)').matches; }
+    function _openDrawer() {
+      sidebar.classList.add('drawer-open');
+      if (backdrop) backdrop.classList.add('visible');
+    }
+    function _closeDrawer() {
+      sidebar.classList.remove('drawer-open');
+      if (backdrop) backdrop.classList.remove('visible');
+    }
+
     if (toggleBtn && sidebar) {
       toggleBtn.addEventListener('click', function() {
+        if (_isMobile()) { _closeDrawer(); return; }
         sidebar.classList.toggle('collapsed');
         toggleBtn.innerHTML = sidebar.classList.contains('collapsed')
           ? '<i class="fa-solid fa-angles-right"></i>'
           : '<i class="fa-solid fa-angles-left"></i>';
       });
     }
+    if (openBtn && sidebar) openBtn.addEventListener('click', _openDrawer);
+    if (backdrop) backdrop.addEventListener('click', _closeDrawer);
+    /* Tapping an algorithm in the drawer closes it (mobile) */
+    if (sidebar) sidebar.addEventListener('click', function(e) {
+      if (_isMobile() && e.target.closest && e.target.closest('.sidebar-algo-item')) _closeDrawer();
+    });
   }
 
   /* ── Build live counters ─────────────────────────────── */
@@ -298,14 +322,26 @@ var WorkspaceController = (function() {
       dlsInput.value = algo.input.defaultDepthLimit;
     }
 
-    /* Pathfinding extras */
+    /* Pathfinding extras (grid). The engine is loaded AFTER _setupControls,
+       so bind handlers that read WS.engine at click time (the old code
+       guarded on WS.engine here, which was always null → buttons dead). */
     var pathExtra = byId('ctrlPathExtra');
     if (pathExtra) pathExtra.style.display = (algo.engine === 'gridEngine') ? 'flex' : 'none';
 
-    var btnMaze  = byId('btnGenMaze');
-    var btnClear = byId('btnClearGrid');
-    if (btnMaze  && WS.engine && typeof WS.engine.generateMaze  === 'function') btnMaze.addEventListener('click',  function() { WS.engine.generateMaze(); });
-    if (btnClear && WS.engine && typeof WS.engine.clearGrid     === 'function') btnClear.addEventListener('click', function() { WS.engine.clearGrid(); });
+    var btnMaze    = byId('btnGenMaze');
+    var btnClear   = byId('btnClearGrid');
+    var btnGridBFS = byId('btnGridBFS');
+    var btnGridAst = byId('btnGridAstar');
+    if (btnMaze) btnMaze.addEventListener('click', function() {
+      if (WS.isRunning && !WS.isPaused) { log('compare', 'Pause or reset before regenerating the maze.'); return; }
+      if (WS.engine && typeof WS.engine.generateMaze === 'function') WS.engine.generateMaze();
+    });
+    if (btnClear) btnClear.addEventListener('click', function() {
+      if (WS.isRunning && !WS.isPaused) { log('compare', 'Pause or reset first.'); return; }
+      if (WS.engine && typeof WS.engine.clearGrid === 'function') WS.engine.clearGrid();
+    });
+    if (btnGridBFS) btnGridBFS.addEventListener('click', function() { _runGridPath('bfs'); });
+    if (btnGridAst) btnGridAst.addEventListener('click', function() { _runGridPath('astar'); });
 
     /* K slider */
     var kGroup  = byId('kSliderGroup');
@@ -809,7 +845,7 @@ var WorkspaceController = (function() {
         WS.heuristic = sel.value;
         log('info', 'Heuristic switched to <strong>' + sel.value + '</strong>. Press Play to run again.');
       });
-      WS.heuristic = sel.value || 'manhattan';
+      WS.heuristic = sel.value || 'euclidean';
     }
   }
 
@@ -997,9 +1033,8 @@ var WorkspaceController = (function() {
     if (WS.isPaused) {
       /* If user stepped back/forward, restore to latest real state before resuming */
       var latest = WS.steps.length - 1;
-      if (WS.stepIndex !== latest && latest >= 0 &&
-          WS.engine && typeof WS.engine.restoreState === 'function') {
-        WS.engine.restoreState(WS.steps[latest]);
+      if (WS.stepIndex !== latest && latest >= 0) {
+        _applyFrame(WS.steps[latest]);
         WS.stepIndex = latest;
       }
       WS.isPaused = false;
@@ -1066,13 +1101,50 @@ var WorkspaceController = (function() {
     log('info', 'Reset. Press <strong>Play</strong> to start again.');
   }
 
+  /* ── Grid pathfinding (BFS / A*) on a generated maze ──────
+     Runs a grid runner against the live gridEngine. Reuses the
+     play/pause/reset control state so Pause and Reset work, and is
+     guarded by the run-token so a Reset can't be clobbered. Step
+     buttons stay disabled (gridEngine has no restoreState — see A2). */
+  function _runGridPath(kind) {
+    if (WS.isRunning && !WS.isPaused) { log('compare', 'Pause or reset the current run first.'); return; }
+    var eng = WS.engine;
+    if (!eng || typeof eng.getNeighbours !== 'function') {
+      log('compare', 'Generate a maze first (press <strong>Maze</strong>).');
+      return;
+    }
+    var runner = (kind === 'astar')
+      ? (typeof runGridAstar === 'function' ? runGridAstar : null)
+      : (typeof runGridBFS   === 'function' ? runGridBFS   : null);
+    if (!runner) { log('compare', 'Grid pathfinder not loaded.'); return; }
+
+    WS.isRunning = true;
+    WS.isPaused  = false;
+    WS.control   = { isPaused: false, isAborted: false };
+    var myRun    = ++WS.runToken;
+    _setControlState('running');
+
+    var opts = {
+      engine:      eng,
+      control:     WS.control,
+      getDelay:    function() { return speedToDelay(WS.speed); },
+      onLog:       log,
+      onCounter:   _bumpCounter,
+      onVarUpdate: _updateVar
+    };
+    Promise.resolve(runner(opts)).then(function() {
+      if (done !== false && myRun === WS.runToken) {
+        WS.isRunning = false;
+        _setControlState('done');
+      }
+    });
+  }
+
   /* ── Step backward ──────────────────────────────────── */
   function _onStepBack() {
     if (WS.stepIndex <= 0 || WS.steps.length === 0) return;
     WS.stepIndex--;
-    if (WS.engine && typeof WS.engine.restoreState === 'function') {
-      WS.engine.restoreState(WS.steps[WS.stepIndex]);
-    }
+    _applyFrame(WS.steps[WS.stepIndex]);
     _updateStepButtons();
     log('info', 'Step ' + (WS.stepIndex + 1) + ' / ' + WS.steps.length);
   }
@@ -1081,9 +1153,7 @@ var WorkspaceController = (function() {
   function _onStepFwd() {
     if (WS.stepIndex >= WS.steps.length - 1 || WS.steps.length === 0) return;
     WS.stepIndex++;
-    if (WS.engine && typeof WS.engine.restoreState === 'function') {
-      WS.engine.restoreState(WS.steps[WS.stepIndex]);
-    }
+    _applyFrame(WS.steps[WS.stepIndex]);
     _updateStepButtons();
     log('info', 'Step ' + (WS.stepIndex + 1) + ' / ' + WS.steps.length);
   }
@@ -1097,7 +1167,14 @@ var WorkspaceController = (function() {
     if (WS.stepIndex < WS.steps.length - 1) {
       WS.steps = WS.steps.slice(0, WS.stepIndex + 1);
     }
-    WS.steps.push(state);
+    /* Snapshot the picture AND the dashboard (counters + variables) so a
+       rewind restores frame-N's numbers, not just the visualization. The
+       two clones are tiny and the buffer is bounded by MAX_STEPS. */
+    WS.steps.push({
+      engine:   state,
+      counters: _cloneObj(WS.counters),
+      vars:     _cloneObj(WS.vars)
+    });
     /* Bounded buffer: drop oldest frames beyond MAX_STEPS so a long, fast
        run can't grow memory without limit. */
     while (WS.steps.length > WS.MAX_STEPS) WS.steps.shift();
@@ -1105,11 +1182,53 @@ var WorkspaceController = (function() {
     /* Don't update step buttons here — too frequent; updated on pause/done */
   }
 
+  /* Shallow clone of a flat { key: value } object. */
+  function _cloneObj(o) {
+    var out = {};
+    if (o) { for (var k in o) { if (o.hasOwnProperty(k)) out[k] = o[k]; } }
+    return out;
+  }
+
+  /* ── Apply a recorded frame: engine + counters + variable watcher ── */
+  function _applyFrame(frame) {
+    if (!frame) return;
+    if (frame.engine && WS.engine && typeof WS.engine.restoreState === 'function') {
+      WS.engine.restoreState(frame.engine);
+    }
+    _restoreCounters(frame.counters);
+    _restoreVars(frame.vars);
+  }
+
+  /* Rewrite every declared counter cell from a snapshot (missing → 0). */
+  function _restoreCounters(snap) {
+    for (var key in WS.counters) {
+      if (!WS.counters.hasOwnProperty(key)) continue;
+      var v = (snap && snap[key] !== undefined) ? snap[key] : 0;
+      WS.counters[key] = v;
+      setText('counter-val-' + key, String(v));
+    }
+  }
+
+  /* Rewrite every variable-watcher cell from a snapshot (missing → —). */
+  function _restoreVars(snap) {
+    WS.vars = _cloneObj(snap);
+    if (!(WS.algo && WS.algo.variables)) return;
+    for (var i = 0; i < WS.algo.variables.length; i++) {
+      var nm  = WS.algo.variables[i];
+      var val = snap ? snap[nm] : undefined;
+      setText('vw-' + nm, (val !== undefined && val !== null) ? String(val) : '—');
+    }
+  }
+
   /* ── Enable/disable step buttons ────────────────────── */
   function _updateStepButtons() {
     var btnBack = byId('btnStepBack');
     var btnFwd  = byId('btnStepFwd');
-    var canStep = !WS.isRunning || WS.isPaused;
+    /* Only enable stepping when the active engine can actually rewind.
+       graphEngine / gridEngine / mathEngine have no restoreState, so the
+       buttons stay disabled there instead of silently no-op'ing. */
+    var canRewind = WS.engine && typeof WS.engine.restoreState === 'function';
+    var canStep = (!WS.isRunning || WS.isPaused) && canRewind;
     var hasBack = WS.stepIndex > 0;
     var hasFwd  = WS.stepIndex < WS.steps.length - 1;
     if (btnBack) btnBack.disabled = !(canStep && hasBack);
@@ -1169,7 +1288,7 @@ var WorkspaceController = (function() {
     opts.arraySize = sizeSlider ? parseInt(sizeSlider.value) : 30;
 
     /* Heuristic (for A*) */
-    opts.heuristic = WS.heuristic || 'manhattan';
+    opts.heuristic = WS.heuristic || 'euclidean';
 
     /* Traversal mode (for tree-traversals & BST interactive traverse) */
     /* Prefer the new segmented button group; fall back to legacy select */
@@ -1190,7 +1309,11 @@ var WorkspaceController = (function() {
     var exprInput = byId('expressionInput');
     if (exprInput && exprInput.value.trim()) {
       opts.customInput = opts.customInput || {};
-      opts.customInput.expression = exprInput.value.trim();
+      /* Allowlist: expressions only ever contain identifiers, digits,
+         operators, parens and spaces. Stripping everything else removes any
+         HTML/script-injection vector before the value is echoed into the log
+         via innerHTML (defence-in-depth — there's no backend, but cheap). */
+      opts.customInput.expression = exprInput.value.replace(/[^A-Za-z0-9+\-*/^(). ]/g, '').trim();
     }
 
     /* Depth limit for DLS */
@@ -1229,6 +1352,14 @@ var WorkspaceController = (function() {
       if (WS.counters.hasOwnProperty(key)) {
         WS.counters[key] = 0;
         setText('counter-val-' + key, '0');
+      }
+    }
+    /* Clear the variable mirror + watcher cells too, so a fresh run starts
+       from a clean dashboard (A3). */
+    WS.vars = {};
+    if (WS.algo && WS.algo.variables) {
+      for (var i = 0; i < WS.algo.variables.length; i++) {
+        setText('vw-' + WS.algo.variables[i], '—');
       }
     }
   }
@@ -1362,6 +1493,12 @@ function log(type, message) {
 }
 
 function updateVar(name, value) {
+  /* Mirror every write into WS.vars so _recordStep can snapshot the
+     variable watcher alongside the engine + counters (A3 faithful rewind). */
+  if (typeof WS !== 'undefined' && WS) {
+    if (!WS.vars) WS.vars = {};
+    WS.vars[name] = value;
+  }
   var cell = byId('vw-' + name);
   if (!cell) return;
   var prev = cell.textContent;

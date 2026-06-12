@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — Global Reset & Base Styles
+   Lernexa — Global Reset & Base Styles
    ════════════════════════════════════════════════════════════ */
 
 /* ── Box Model Reset ─────────────────────────────────────── */
@@ -231,4 +231,17 @@ code, pre, .mono { font-family: var(--font-mono); }
 /* ── Responsive helpers ──────────────────────────────────── */
 @media (max-width: 768px) {
   .section-header h2 { font-size: var(--text-3xl); }
+}
+
+/* ── Accessibility: respect reduced-motion ───────────────────
+   Neutralises decorative CSS animations/transitions for users who
+   ask for less motion. Algorithm pacing is JS-timed (sleep), so the
+   visualizations still step through normally. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

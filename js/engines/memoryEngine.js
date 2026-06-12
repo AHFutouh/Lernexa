@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════
-   LERNEXA PRO — memoryEngine.js
+   Lernexa — memoryEngine.js
    Premium search visualization engine.
    Renders memory blocks with per-cell pointer slots above each cell.
    ════════════════════════════════════════════════════════════ */

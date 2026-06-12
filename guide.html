@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lernexa — Guide</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Fira+Code:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/base/variables.css" />
+  <link rel="stylesheet" href="css/base/reset.css" />
+  <link rel="stylesheet" href="css/components/navbar.css" />
+  <link rel="stylesheet" href="css/components/cards.css" />
+  <link rel="stylesheet" href="css/pages/landing.css" />
+
+  <style>
+    /* ── Guide-specific layout (uses existing design tokens) ── */
+    .guide-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: calc(var(--space-16) + 40px) var(--space-6) var(--space-16);
+    }
+    .guide-head { text-align: center; margin-bottom: var(--space-10); }
+    .guide-head h1 { font-size: var(--text-5xl); margin-bottom: var(--space-3); }
+    .guide-head p { color: var(--text-secondary); font-size: var(--text-lg); }
+
+    .guide-tabs {
+      position: sticky; top: 64px; z-index: 5;
+      display: flex; flex-wrap: wrap; gap: var(--space-2);
+      justify-content: center;
+      padding: var(--space-3) 0; margin-bottom: var(--space-8);
+      background: color-mix(in srgb, var(--bg-primary) 86%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .guide-tab {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-default);
+      color: var(--text-secondary); font-size: var(--text-sm);
+      font-weight: var(--weight-medium); text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+    .guide-tab:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+
+    .guide-section { margin-bottom: var(--space-16); scroll-margin-top: 130px; }
+    .guide-section > h2 {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-size: var(--text-3xl); margin-bottom: var(--space-2);
+    }
+    .guide-step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; flex-shrink: 0;
+      border-radius: var(--radius-full);
+      background: var(--accent-blue-dim); color: var(--accent-blue);
+      font-family: var(--font-mono); font-weight: var(--weight-bold);
+    }
+    .guide-lead { color: var(--text-secondary); margin: 0 0 var(--space-6) 51px; }
+
+    .guide-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-6);
+      margin-bottom: var(--space-4);
+    }
+    .guide-card h3 {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-lg); margin-bottom: var(--space-2);
+    }
+    .guide-card p { color: var(--text-secondary); }
+    .guide-card p + p { margin-top: var(--space-2); }
+
+    .guide-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+    .guide-kbd {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      padding: 2px 7px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border-default);
+      background: var(--bg-tertiary); color: var(--text-primary);
+    }
+    .legend-row {
+      display: flex; align-items: center; gap: var(--space-3);
+      padding: var(--space-2) 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .legend-row:last-child { border-bottom: none; }
+    .legend-swatch {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.18);
+    }
+    .legend-row strong { min-width: 96px; }
+    .legend-row span { color: var(--text-secondary); font-size: var(--text-sm); }
+
+    .guide-code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      overflow-x: auto;
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      line-height: 1.7; color: var(--text-primary);
+      margin-bottom: var(--space-4);
+    }
+    .guide-code .cm { color: var(--text-muted); }
+    .guide-code .kw { color: var(--accent-purple); }
+    .guide-code .fn { color: var(--accent-blue); }
+    .guide-code .str { color: var(--accent-green); }
+
+    .guide-steps-ol { margin: 0 0 var(--space-4) var(--space-5); color: var(--text-secondary); }
+    .guide-steps-ol li { margin-bottom: var(--space-2); }
+    .guide-steps-ol code, .guide-card code, .guide-lead code {
+      font-family: var(--font-mono); font-size: 0.9em;
+      color: var(--accent-blue); background: var(--accent-blue-dim);
+      padding: 1px 5px; border-radius: var(--radius-sm);
+    }
+    .guide-cta { text-align: center; margin-top: var(--space-10); }
+
+    @media (max-width: 640px) {
+      .guide-grid { grid-template-columns: 1fr; }
+      .guide-lead { margin-left: 0; }
+      .guide-head h1 { font-size: var(--text-4xl); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Library</a></li>
+        <li><a href="guide.html">Guide</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div class="nav-mobile-menu" id="navMobileMenu">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Algorithm Library</a>
+      <a href="guide.html">Guide</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="guide-wrap">
+
+      <header class="guide-head">
+        <h1>How to use <span class="gradient-text">Lernexa</span></h1>
+        <p>From "press play" to "add your own algorithm" — three levels, pick where you are.</p>
+      </header>
+
+      <div class="guide-tabs">
+        <a class="guide-tab" href="#use"><i class="fa-solid fa-play"></i> Use it</a>
+        <a class="guide-tab" href="#read"><i class="fa-solid fa-eye"></i> Read it</a>
+        <a class="guide-tab" href="#build"><i class="fa-solid fa-code"></i> Build it</a>
+      </div>
+
+      <!-- ════════ 1 · USE IT ════════ -->
+      <section class="guide-section" id="use">
+        <h2><span class="guide-step-num">1</span> Use it</h2>
+        <p class="guide-lead">
+          Open any algorithm from the <a href="catalog.html">Library</a>, then drive it
+          with the control bar. Nothing to install — it runs in the browser.
+        </p>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-play" style="color:var(--accent-green)"></i> Play / Pause</h3>
+            <p>Start the animation, or pause it mid-run to inspect the current state.
+               Shortcut: <span class="guide-kbd">Space</span>.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-backward-step" style="color:var(--accent-blue)"></i> Step back / forward</h3>
+            <p>While paused, rewind and replay frame by frame — the picture
+               <em>and</em> the counters/variables jump to that exact step.
+               <span class="guide-kbd">←</span> <span class="guide-kbd">→</span>.</p>
+            <p>Disabled for a few views (trees, maze, the math demos) where rewinding
+               isn't supported — they stay greyed out rather than pretending to work.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-gauge-high" style="color:var(--accent-orange)"></i> Speed</h3>
+            <p>Slide from 0.25× to 2×. It changes the delay between steps, so fast
+               runs stay smooth and slow runs are easy to follow.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-keyboard" style="color:var(--accent-purple)"></i> Custom input</h3>
+            <p>Type your own array, target, expression, or numbers, then
+               <strong>Apply</strong>. Sorting views also generate edge cases
+               (reversed, nearly-sorted, few-unique…). Reset with
+               <span class="guide-kbd">R</span>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ 2 · READ IT ════════ -->
+      <section class="guide-section" id="read">
+        <h2><span class="guide-step-num">2</span> Read it</h2>
+        <p class="guide-lead">
+          Every view speaks the same visual language. Once you know the colours and
+          the dashboard, you can read any of the 36 algorithms.
+        </p>
+
+        <div class="guide-card">
+          <h3><i class="fa-solid fa-palette"></i> Colour legend</h3>
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:rgba(240,136,62,0.5)"></span>
+            <strong>Comparing</strong><span>the elements / cell being looked at right now</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:rgba(176,38,255,0.5)"></span>
+            <strong>Visited</strong><span>already processed (graph nodes, swept cells)</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:rgba(0,240,255,0.6)"></span>
+            <strong>Path / active</strong><span>the chosen path, pivot, or current pointer</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:rgba(57,211,83,0.6)"></span>
+            <strong>Done / found</strong><span>sorted, target found, or goal reached</span>
+          </div>
+          <div class="legend-row">
+            <span class="legend-swatch" style="background:rgba(255,110,110,0.6)"></span>
+            <strong>Goal / error</strong><span>the end node, or an invalid operation</span>
+          </div>
+        </div>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-stopwatch"></i> Counters</h3>
+            <p>The tiles tally real work — comparisons, swaps, array writes,
+               nodes visited. Watch them grow to <em>feel</em> a complexity class.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-table-list"></i> Variable watcher</h3>
+            <p>The live values of the algorithm's key variables (pointers, indices,
+               accumulators) update as it runs — and rewind with the step buttons.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-list-ul"></i> Step log</h3>
+            <p>A running narration of each decision: why a pointer moved, which branch
+               was taken, what a cell resolved to.</p>
+          </div>
+          <div class="guide-card">
+            <h3><i class="fa-solid fa-gauge"></i> Complexity strip</h3>
+            <p>Best / average / worst time and space for the algorithm — the theory
+               next to the behaviour you're watching.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ 3 · BUILD IT ════════ -->
+      <section class="guide-section" id="build">
+        <h2><span class="guide-step-num">3</span> Build it <span style="font-size:var(--text-base);color:var(--text-muted)">· for the curious</span></h2>
+        <p class="guide-lead">
+          Lernexa is <strong>data-driven</strong>. <code>data/algorithms.json</code> is the
+          source of truth — it declares each algorithm's metadata, default input,
+          complexity, and the counters/variables its dashboard shows. Three layers stay
+          cleanly separated:
+        </p>
+
+        <div class="guide-card">
+          <h3><i class="fa-solid fa-layer-group"></i> The architecture</h3>
+          <p><strong>Router</strong> reads <code>?algo=&lt;id&gt;</code>, validates it, and boots the
+             workspace. <strong>Workspace</strong> is the orchestrator — it wires the controls to
+             the engine and the dashboard. <strong>Engines</strong> (nine of them) do rendering
+             only — DOM, SVG, or Canvas — with zero algorithm logic. <strong>Runners</strong> are
+             pure algorithm functions that never touch the DOM.</p>
+        </div>
+
+        <div class="guide-card">
+          <h3><i class="fa-solid fa-plug"></i> The callback contract</h3>
+          <p>A runner is one async function. It drives the UI only through callbacks —
+             it never reaches into the page:</p>
+          <pre class="guide-code"><code><span class="kw">async function</span> <span class="fn">runX</span>(opts) {
+  <span class="kw">var</span> engine   = opts.engine;       <span class="cm">// rendering engine for this algorithm</span>
+  <span class="kw">var</span> control  = opts.control;      <span class="cm">// { isPaused, isAborted } — cooperative</span>
+  <span class="kw">var</span> getDelay = opts.getDelay;     <span class="cm">// await sleep(getDelay()) between frames</span>
+  <span class="kw">var</span> onLog    = opts.onLog;        <span class="cm">// (type, message) → step log</span>
+  <span class="kw">var</span> onCnt    = opts.onCounter;    <span class="cm">// (key [, by])     → bump a counter</span>
+  <span class="kw">var</span> onVar    = opts.onVarUpdate;  <span class="cm">// (name, value)    → variable watcher</span>
+
+  <span class="cm">// opts also carries parsed input: array, target, k, customInput, opts.algo…</span>
+
+  <span class="cm">// …do work, calling onCnt/onVar/onLog and awaiting sleep(getDelay())…</span>
+  <span class="kw">return</span> <span class="kw">true</span>;   <span class="cm">// true = finished, false = aborted</span>
+}</code></pre>
+          <p>The counter/variable <em>keys</em> a runner emits must match the
+             <code>counters</code>/<code>variables</code> it declares in the JSON — a contract the
+             headless tests lock down.</p>
+        </div>
+
+        <div class="guide-card">
+          <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Add an algorithm — mostly data + one function</h3>
+          <ol class="guide-steps-ol">
+            <li><strong>Declare it</strong> — one entry in <code>data/algorithms.json</code>
+                (id, name, category, engine, input, complexity, variables, counters).</li>
+            <li><strong>Write the runner</strong> — <code>js/algorithms/&lt;category&gt;/&lt;name&gt;.js</code>
+                exporting <code>async function runX(opts)</code> (the contract above).</li>
+            <li><strong>Register it</strong> — add it to the <code>RUNNERS</code> map in
+                <code>workspace.js</code> and a <code>&lt;script&gt;</code> tag in <code>workspace.html</code>.</li>
+          </ol>
+          <p>Reuse an existing engine and you write <strong>no rendering code at all</strong>.</p>
+        </div>
+
+        <div class="guide-cta">
+          <a href="catalog.html" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-layer-group"></i> Browse the Library
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-logo"><span class="logo-bracket">&lt;</span>Lernexa<span class="logo-bracket">/&gt;</span></span>
+      <span class="footer-copy">© 2026 Lernexa · Built for learners.</span>
+      <nav class="footer-nav">
+        <a href="https://github.com/AHFutouh/Lernexa" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github"></i> Source Code
+        </a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/core/utils.js"></script>
+</body>
+
+</html>
